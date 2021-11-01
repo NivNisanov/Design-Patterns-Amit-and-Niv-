@@ -94,6 +94,7 @@ namespace BasicFacebookFeatures
             CalendarCreator calendar = new CalendarCreator();
             FetchFriendsBirthdaysAtTime(calendar);
             calendar.ExportCalendar();
+
             //calendar.OpenCalendar();
             //m_Events = GetEvents();
             //foreach(Event eventToAdd in m_Events)
