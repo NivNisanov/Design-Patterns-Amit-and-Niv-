@@ -111,7 +111,7 @@ namespace BasicFacebookFeatures
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listOfEvents);
             this.Name = "FindAndPrepareBirthdaysForm";
-            this.Text = "FindAndPrepareBirthdaysForm";
+            this.Text = "Prepare Birthdays Form";
             this.ResumeLayout(false);
             this.PerformLayout();
 
