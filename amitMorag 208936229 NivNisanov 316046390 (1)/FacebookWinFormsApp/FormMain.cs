@@ -82,7 +82,7 @@ namespace BasicFacebookFeatures
 
         private void musicalEventsFinderButton_Click(object sender, EventArgs e)
         {
-            MusicalEventsForm musicalForm = new MusicalEventsForm(m_LoggedInUser);
+            FindAndPrepareBirthdaysForm musicalForm = new FindAndPrepareBirthdaysForm(m_LoggedInUser);
             musicalForm.Show();
 
         }

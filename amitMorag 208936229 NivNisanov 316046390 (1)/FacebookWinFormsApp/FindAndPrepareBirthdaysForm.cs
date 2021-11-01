@@ -13,7 +13,7 @@ using FacebookWrapper.ObjectModel;
 
 namespace BasicFacebookFeatures
 {
-    public partial class MusicalEventsForm : Form
+    public partial class FindAndPrepareBirthdaysForm : Form
     {
         private FacebookObjectCollection<Page> m_MusicArtists;
         private FacebookObjectCollection<User> m_FriendsList;
@@ -22,7 +22,7 @@ namespace BasicFacebookFeatures
         private DateTime m_EndTime;
         private User m_UserLoggedIn;
 
-        public MusicalEventsForm(User i_UserLoggedIn)
+        public FindAndPrepareBirthdaysForm(User i_UserLoggedIn)
         {
             InitializeComponent();
             m_UserLoggedIn = i_UserLoggedIn;

@@ -1,7 +1,7 @@
 ﻿
 namespace BasicFacebookFeatures
 {
-    partial class MusicalEventsForm
+    partial class FindAndPrepareBirthdaysForm
     {
         /// <summary>
         /// Required designer variable.
@@ -98,7 +98,7 @@ namespace BasicFacebookFeatures
             this.searchEventsButton.UseVisualStyleBackColor = true;
             this.searchEventsButton.Click += new System.EventHandler(this.searchEventsButton_Click);
             // 
-            // MusicalEventsForm
+            // FindAndPrepareBirthdaysForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -110,8 +110,8 @@ namespace BasicFacebookFeatures
             this.Controls.Add(this.startDateTimePicker);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listOfEvents);
-            this.Name = "MusicalEventsForm";
-            this.Text = "MusicalEventsForm";
+            this.Name = "FindAndPrepareBirthdaysForm";
+            this.Text = "FindAndPrepareBirthdaysForm";
             this.ResumeLayout(false);
             this.PerformLayout();
 
