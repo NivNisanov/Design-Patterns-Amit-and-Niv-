@@ -47,6 +47,7 @@ namespace BasicFacebookFeatures
         public void FetchFriendsBirthdaysAtTime()
         {
             m_FriendsBirthdays.Clear();
+            listOfEvents.Items.Clear();
 
             foreach (User friend in m_FriendsList)
             {
@@ -117,9 +118,9 @@ namespace BasicFacebookFeatures
             CalendarCreator calendar = new CalendarCreator();
             foreach(UserBirthday birthday in m_FriendsBirthdays)
             {
-                calendar.AddEvent(birthday.BirthdayDate, birthday.User);
+                calendar.AddEvent(birthday.BirthdayDate, birthday.User, birthday.BirthdayWish);
             }
-            calendar.ExportCalendar();
+            calendar.ExportCalendar("BirthdayHelper");
             calendar.OpenCalendar();
             
         }

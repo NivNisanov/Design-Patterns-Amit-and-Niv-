@@ -11,11 +11,13 @@ namespace BasicFacebookFeatures
     {
         private User m_User;
         private DateTime m_BirthdayDate;
+        private string m_BirthdayWish = String.Empty;
 
         public UserBirthday(User i_User, DateTime i_BirthdayDate)
         {
             m_User = i_User;
             m_BirthdayDate = i_BirthdayDate;
+            m_BirthdayWish = "Happy Birthday!"; // TODO: change to func to get wish
         }
 
         public User User
@@ -31,6 +33,14 @@ namespace BasicFacebookFeatures
             get
             {
                 return m_BirthdayDate;
+            }
+        }
+
+        public string BirthdayWish
+        {
+            get
+            {
+                return m_BirthdayWish;
             }
         }
         

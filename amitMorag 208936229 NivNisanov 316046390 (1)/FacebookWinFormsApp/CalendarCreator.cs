@@ -16,6 +16,7 @@ namespace BasicFacebookFeatures
         string m_DateFormat = "yyyyMMdd";
         readonly string r_CurrentTime;
         private int m_NumberOfEvents;
+        private string m_NameOfFile;
 
         public CalendarCreator()
         {
@@ -28,28 +29,28 @@ namespace BasicFacebookFeatures
             
         }
 
-        public void AddEvent(DateTime i_Date, User i_Friend)
+        public void AddEvent(DateTime i_Date, User i_Friend, string i_Description)
         {
-            string birthdayWish = "test wish"; //= BirthdayWishGenarator(i_Date, friend);
             calendarFormat.AppendLine("BEGIN:VEVENT");
             calendarFormat.AppendLine("DTSTART;VALUE=DATE:" + i_Date.ToString(m_DateFormat));
             calendarFormat.AppendLine("DTSTAMP:" + r_CurrentTime);
             calendarFormat.AppendLine("UID:" + Guid.NewGuid());
             calendarFormat.AppendLine("CREATED:" + r_CurrentTime);
             //calendarFormat.AppendLine("X-ALT-DESC;FMTTYPE=text/html:" + res.DetailsHTML);
-            calendarFormat.AppendLine($"DESCRIPTION:{birthdayWish}");
+            calendarFormat.AppendLine($"DESCRIPTION:{i_Description}");
             calendarFormat.AppendLine($"LAST-MODIFIED:{r_CurrentTime}");
             calendarFormat.AppendLine($"SUMMARY:{i_Friend.Name} Birthday");
             calendarFormat.AppendLine("END:VEVENT");
             m_NumberOfEvents++;
         }
 
-        public void ExportCalendar()
+        public void ExportCalendar(string i_NameofFile)
         {
+            m_NameOfFile = i_NameofFile;
             StringBuilder calendarForExport = calendarFormat;
             calendarForExport.AppendLine("END:VCALENDAR");
 
-            string dirParameter = AppDomain.CurrentDomain.BaseDirectory + @"\BirthdayHelper.ics";
+            string dirParameter = AppDomain.CurrentDomain.BaseDirectory + $@"\{m_NameOfFile}.ics";
             string Msg = calendarFormat.ToString();
 
             FileStream fParameter = new FileStream(dirParameter, FileMode.Create, FileAccess.Write);
@@ -62,7 +63,7 @@ namespace BasicFacebookFeatures
 
         public void OpenCalendar()
         {
-            System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory + @"\BirthdayHelper.ics");
+            System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory + $@"\{m_NameOfFile}.ics");
         }
     }
 }
