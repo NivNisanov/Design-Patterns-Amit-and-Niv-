@@ -42,6 +42,7 @@ namespace BasicFacebookFeatures
 
 
         }
+
         private void filterOnlyBirthdayPosts()
         {
             List<Post> birthdayPosts = new List<Post>();
@@ -76,7 +77,7 @@ namespace BasicFacebookFeatures
             {
                 if (item is Post birthdayPost)
                 {
-                    string replyMessage = r_CommentGenerator.GenerateAutoComment(birthdayPost);
+                    string replyMessage = r_CommentGenerator.GenerateText(birthdayPost.From);
                     suggestedCommentsLst.Items.Add(replyMessage);
                 }
             }

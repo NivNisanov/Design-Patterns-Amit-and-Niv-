@@ -35,15 +35,6 @@ namespace BasicFacebookFeatures
             //GetEvents();
         }
 
-        public List<Event> GetEvents()
-        {
-            //to remove
-            m_MusicArtists = FacebookService.GetCollection<Page>("music");
-            FetchMusicEvents();
-
-            return m_Events;
-        }
-
         public void FetchFriendsBirthdaysAtTime()
         {
             m_FriendsBirthdays.Clear();
@@ -69,27 +60,6 @@ namespace BasicFacebookFeatures
                             listOfEvents.Items.Add($"{friend.Name} at {friendBirthdayInIntervalTime.ToShortDateString()}");
                             m_FriendsBirthdays.Add(new UserBirthday(friend,friendBirthdayInIntervalTime));
                             //i_Calendar.AddEvent(friendBirthdayInIntervalTime, friend);
-                        }
-                    }
-                }
-            }
-        }
-
-        private void FetchMusicEvents()
-        {
-            //to remove
-            for (int i = 0; i < m_MusicArtists.Count; i++)
-            {
-                FacebookObjectCollection<Event> eventsList = m_MusicArtists[i].Events;
-                for (int j = 0; j < eventsList.Count; j++)
-                {
-                    Event currentEvent = eventsList[j];
-
-                    if (currentEvent.InterestedCount > 100)
-                    {
-                        if (DateTime.Compare(currentEvent.StartTime.Value,m_StartTime) > 0 && DateTime.Compare(currentEvent.EndTime.Value, m_EndTime) < 0)
-                        {
-                            m_Events.Add(currentEvent);
                         }
                     }
                 }

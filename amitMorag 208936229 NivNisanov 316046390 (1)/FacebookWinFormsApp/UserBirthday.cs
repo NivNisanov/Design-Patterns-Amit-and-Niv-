@@ -12,12 +12,14 @@ namespace BasicFacebookFeatures
         private User m_User;
         private DateTime m_BirthdayDate;
         private string m_BirthdayWish = String.Empty;
+        private readonly BirthdayWishGenerator r_BirthdayWishGenerator;
 
         public UserBirthday(User i_User, DateTime i_BirthdayDate)
         {
+            r_BirthdayWishGenerator = new BirthdayWishGenerator();
             m_User = i_User;
             m_BirthdayDate = i_BirthdayDate;
-            m_BirthdayWish = "Happy Birthday!"; // TODO: change to func to get wish
+            m_BirthdayWish = r_BirthdayWishGenerator.GenerateText(i_User);
         }
 
         public User User
