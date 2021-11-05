@@ -20,22 +20,13 @@ namespace BasicFacebookFeatures
                                     };
         private readonly Random r_Randomizer = new Random();
 
-        //bday wish
-        // [greetings] [name] Happy [age] birthday [wish] 
-
         public override string GenerateText(User i_Friend)
         {
+            m_User = i_Friend;
             string opening = r_Greetings[r_Randomizer.Next(r_Greetings.Length)];
             string wish = r_Wishes[r_Randomizer.Next(r_Wishes.Length)];
 
-            return $"{opening} {i_Friend.FirstName}, Happy {getAgeFromUser(i_Friend)} Birthday! {wish}";
+            return $"{opening} {m_User.FirstName}, Happy {getUserAge()} Birthday! {wish}";
         }
-
-        private int getAgeFromUser(User i_User)
-        {
-            DateTime friendBirthday = DateTime.Parse(i_User.Birthday, new CultureInfo("en-CA"));
-            return DateTime.Today.Year - friendBirthday.Year;
-        }
-
     }
 }
