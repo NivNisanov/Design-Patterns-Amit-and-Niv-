@@ -17,9 +17,6 @@ namespace BasicFacebookFeatures
         private readonly User r_LoggedInUser;
         private readonly CommentGenerator r_CommentGenerator;
 
-        // private readonly FormFacebookLogin r_FormLogin = new FormFacebookLogin();
-
-
         public FormGenerateComment(User i_LoggedInUser)
         {
             InitializeComponent();
@@ -27,20 +24,17 @@ namespace BasicFacebookFeatures
             r_CommentGenerator = new CommentGenerator();
             profilePictureBox.LoadAsync(r_LoggedInUser.PictureNormalURL);
             fetchComments();
-
         }
 
         private void prifilePictureLable_Click(object sender, EventArgs e)
         {
 
         }
+
         private void fetchComments()
         {
             //all posts
             PopulateListBoxOfType(r_LoggedInUser.Posts, commentsListBox);
-
-
-
         }
 
         private void filterOnlyBirthdayPosts()
@@ -61,6 +55,7 @@ namespace BasicFacebookFeatures
 
             PopulateListBoxOfType(birthdayPosts, commentsListBox);
         }
+
         protected void PopulateListBoxOfType<T>(IEnumerable<T> i_Items, ListBox i_ListBox)
         {
             i_ListBox.Items.Clear();
@@ -68,7 +63,6 @@ namespace BasicFacebookFeatures
             foreach (T item in i_Items)
             {
                 i_ListBox.Items.Add(item);
-
             }
         }
         private void displaySuggestedComments()
@@ -88,6 +82,7 @@ namespace BasicFacebookFeatures
             generateBirthdayComment.Visible = true;
             filterOnlyBirthdayPosts();
         }
+
         private void generateBirthdayComment_click(object sender, EventArgs e)
         {
             suggestedCommentsLst.Visible = true;
