@@ -65,7 +65,9 @@ namespace BasicFacebookFeatures
                     /// add any relevant permissions
                     );
             m_LoggedInUser = loginResult.LoggedInUser;
-            buttonLogin.Text = $"Logged in as {loginResult.LoggedInUser.Name}";
+            buttonLogin.Visible = false;
+            showUIAfterLogin();
+            // buttonLogin.Text = $"Logged in as {loginResult.LoggedInUser.Name}";
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
@@ -77,14 +79,31 @@ namespace BasicFacebookFeatures
         {
             FormGenerateComment formGenerateComment = new FormGenerateComment(m_LoggedInUser);
             formGenerateComment.Show();
-
         }
 
         private void musicalEventsFinderButton_Click(object sender, EventArgs e)
         {
             FindAndPrepareBirthdaysForm musicalForm = new FindAndPrepareBirthdaysForm(m_LoggedInUser);
             musicalForm.Show();
+        }
 
+        private void showUIAfterLogin()
+        {
+            profilePic.Visible = true;
+            profilePic.Image = m_LoggedInUser.ImageNormal;
+            pictureBox1.Visible = true;
+            if(m_LoggedInUser.Albums[1].Photos[0] != null)
+            {
+                pictureBox1.Image = m_LoggedInUser.Albums[1].Photos[0].ImageNormal;
+            }
+            else
+            {
+                pictureBox1.ForeColor = Color.DodgerBlue;
+            }
+
+            generateCommentsButton.Visible = true;
+            birthdaysWishesButton.Visible = true;
+            buttonLogout.Visible = true;
         }
     }
 }

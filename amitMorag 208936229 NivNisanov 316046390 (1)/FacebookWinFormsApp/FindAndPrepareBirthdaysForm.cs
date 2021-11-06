@@ -38,9 +38,9 @@ namespace BasicFacebookFeatures
 
             foreach (User friend in r_FriendsList)
             {
-                
                 DateTime friendBirthday = DateTime.Parse(friend.Birthday,new CultureInfo("en-CA"));
-                int numOfYears = m_EndTime.Year - m_StartTime.Year;
+                int numOfYears = m_EndTime.Year - m_StartTime.Year + 1;
+
                 if(DateTime.Compare(m_StartTime, m_EndTime) < 0)
                 {
                     for (int i = 0; i < numOfYears; i++)
@@ -58,6 +58,10 @@ namespace BasicFacebookFeatures
                             r_FriendsBirthdays.Add(new UserBirthday(friend,friendBirthdayInIntervalTime));
                         }
                     }
+                }
+                else
+                {
+                    MessageBox.Show($"Start date ({m_StartTime}) is after the end date ({m_EndTime}).");
                 }
             }
         }
