@@ -24,7 +24,18 @@ namespace BasicFacebookFeatures
 
         private DateTime getUserBirthdayInDateTime(User i_User)
         {
-            return DateTime.Parse(i_User.Birthday, new CultureInfo("en-CA"));
+            //return DateTime.Parse(i_User.Birthday, new CultureInfo("en-CA"));
+            DateTime userBirthdayDateTime = DateTime.Today;
+
+            if (i_User?.Birthday != null)
+            {
+                string userBirthdayString = i_User.Birthday;
+                string[] birthdayStringSplit = userBirthdayString.Split('/');
+                int[] birthdayIntSplit = Array.ConvertAll(birthdayStringSplit, int.Parse);
+                userBirthdayDateTime = new DateTime(birthdayIntSplit[2], birthdayIntSplit[0], birthdayIntSplit[1]);
+            }
+
+            return userBirthdayDateTime;
         }
     }
 }

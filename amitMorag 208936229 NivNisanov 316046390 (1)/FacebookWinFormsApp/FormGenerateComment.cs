@@ -14,7 +14,7 @@ namespace BasicFacebookFeatures
 {
     public partial class FormGenerateComment : Form
     {
-        private User m_LoggedInUser;
+        private readonly User r_LoggedInUser;
         private readonly CommentGenerator r_CommentGenerator;
 
         // private readonly FormFacebookLogin r_FormLogin = new FormFacebookLogin();
@@ -23,9 +23,9 @@ namespace BasicFacebookFeatures
         public FormGenerateComment(User i_LoggedInUser)
         {
             InitializeComponent();
-            m_LoggedInUser = i_LoggedInUser;
+            r_LoggedInUser = i_LoggedInUser;
             r_CommentGenerator = new CommentGenerator();
-            profilePictureBox.LoadAsync(m_LoggedInUser.PictureNormalURL);
+            profilePictureBox.LoadAsync(r_LoggedInUser.PictureNormalURL);
             fetchComments();
 
         }
@@ -37,7 +37,7 @@ namespace BasicFacebookFeatures
         private void fetchComments()
         {
             //all posts
-            PopulateListBoxOfType(m_LoggedInUser.Posts, commentsListBox);
+            PopulateListBoxOfType(r_LoggedInUser.Posts, commentsListBox);
 
 
 
