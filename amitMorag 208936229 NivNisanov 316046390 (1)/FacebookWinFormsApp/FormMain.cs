@@ -32,11 +32,8 @@ namespace BasicFacebookFeatures
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             //Clipboard.SetText("design.patterns20cc"); /// the current password for Desig Patter
-
             FacebookWrapper.LoginResult loginResult = FacebookService.Login(
-                    /// (This is Desig Patter's App ID. replace it with your own)
                     "1208085729677514",
-                    /// requested permissions:
                     "email",
                     "public_profile",
                     "user_posts",
@@ -58,23 +55,24 @@ namespace BasicFacebookFeatures
                     "user_likes",
                     "user_photos",
                     "user_posts"
-
-
-
-
-                    /// add any relevant permissions
                     );
             m_LoggedInUser = loginResult.LoggedInUser;
-            buttonLogin.Visible = false;
-            showUIAfterLogin();
-            // buttonLogin.Text = $"Logged in as {loginResult.LoggedInUser.Name}";
+            if(loginResult.FacebookOAuthResult != null)
+            {
+                buttonLogin.Visible = false;
+                showUIAfterLogin();
+            }
+            else
+            {
+                MessageBox.Show("Log in Failed","ERROR",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
 			FacebookService.LogoutWithUI();
-			buttonLogin.Text = "Login";
-		}
+            HideUIAfterLogout();
+        }
         private void generateCommentsButton_Click(object sender, EventArgs e)
         {
             FormGenerateComment formGenerateComment = new FormGenerateComment(m_LoggedInUser);
@@ -104,6 +102,16 @@ namespace BasicFacebookFeatures
             generateCommentsButton.Visible = true;
             birthdaysWishesButton.Visible = true;
             buttonLogout.Visible = true;
+        }
+
+        private void HideUIAfterLogout()
+        {
+            profilePic.Visible = false;
+            pictureBox1.Visible = false;
+            generateCommentsButton.Visible = false;
+            birthdaysWishesButton.Visible = false;
+            buttonLogout.Visible = false;
+            buttonLogin.Visible = true;
         }
     }
 }
