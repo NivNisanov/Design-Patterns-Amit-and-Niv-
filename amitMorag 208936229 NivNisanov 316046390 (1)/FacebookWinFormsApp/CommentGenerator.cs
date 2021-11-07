@@ -12,16 +12,13 @@
         private string[] m_PoliteEndingWords = { "I hope to see you soon!", "Hope we meet in the near future.", "It was nice hearing from you." };
         private string[] m_RegularOpeningWords = { "Thanks", "ty, cu soon", "Appreciate it", "haha ty" };
         private string[] m_RegularMaleEnding = { "bro", "man", "dude" };
-        //private Post m_FriendPost;
         private bool m_IsPolite;
         private bool m_IsUserMale = true;
-        //private User m_PostAuthor;
         private readonly Random r_Randomizer = new Random();
 
         public override string GenerateText(User i_PostAuthor)
         {
             m_User = i_PostAuthor;
-            //m_FriendPost = i_PostAuthor; ---remove
             generateFriendInfo();
             string comment = generateCommentBasedOnInfo();
             return comment;
@@ -60,8 +57,6 @@
         private void generateFriendInfo()
         {
             // Get user of the post and determine gender.
-            
-            //m_PostAuthor = m_FriendPost.From; --remove
 
             if (m_User != null)
             {
@@ -72,32 +67,5 @@
             int userAge = getUserAge();
             m_IsPolite = (userAge >= k_PoliteAge);
         }
-
-        /*
-        private int getUserAge()
-        {
-            DateTime userAge = translateUserAgeStringToDateTime();
-            int userAgeInDays = (int)(DateTime.Now - userAge).TotalDays;
-
-            return userAgeInDays / 365;
-        }
-
-        private DateTime translateUserAgeStringToDateTime()
-        {
-            //                            [0] [1] [2]
-            // Birthday is in this format "MM/DD/YYYY"
-            DateTime userBirthdayDateTime = DateTime.Today;
-
-            if (m_PostAuthor?.Birthday != null)
-            {
-                string userBirthdayString = m_PostAuthor.Birthday;
-                string[] birthdayStringSplit = userBirthdayString.Split('/');
-                int[] birthdayIntSplit = Array.ConvertAll(birthdayStringSplit, int.Parse);
-                userBirthdayDateTime = new DateTime(birthdayIntSplit[2], birthdayIntSplit[0], birthdayIntSplit[1]);
-            }
-
-            return userBirthdayDateTime;
-        }
-        */
     }
 

@@ -23,15 +23,15 @@ namespace BasicFacebookFeatures
             r_LoggedInUser = i_LoggedInUser;
             r_CommentGenerator = new CommentGenerator();
             profilePictureBox.LoadAsync(r_LoggedInUser.PictureNormalURL);
-            fetchComments();
+            fetchPosts();
         }
 
-        private void prifilePictureLable_Click(object sender, EventArgs e)
+        private void profilePictureLable_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void fetchComments()
+        private void fetchPosts()
         {
             //all posts
             PopulateListBoxOfType(r_LoggedInUser.Posts, commentsListBox);

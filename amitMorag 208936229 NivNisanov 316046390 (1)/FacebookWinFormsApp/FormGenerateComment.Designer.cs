@@ -46,7 +46,7 @@ namespace BasicFacebookFeatures
             this.birthDayLabel.Size = new System.Drawing.Size(129, 17);
             this.birthDayLabel.TabIndex = 0;
             this.birthDayLabel.Text = "your birthday posts";
-            this.birthDayLabel.Click += new System.EventHandler(this.prifilePictureLable_Click);
+            this.birthDayLabel.Click += new System.EventHandler(this.profilePictureLable_Click);
             // 
             // filterButton
             // 
