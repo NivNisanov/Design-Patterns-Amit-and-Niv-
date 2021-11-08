@@ -13,14 +13,12 @@ namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
-
         private User m_LoggedInUser;
 
         public FormMain()
         {
             InitializeComponent();
             FacebookWrapper.FacebookService.s_CollectionLimit = 100;
-
         }
 
         public User LoggedInUser
@@ -73,6 +71,7 @@ namespace BasicFacebookFeatures
 			FacebookService.LogoutWithUI();
             HideUIAfterLogout();
         }
+
         private void generateCommentsButton_Click(object sender, EventArgs e)
         {
             FormGenerateComment formGenerateComment = new FormGenerateComment(m_LoggedInUser);

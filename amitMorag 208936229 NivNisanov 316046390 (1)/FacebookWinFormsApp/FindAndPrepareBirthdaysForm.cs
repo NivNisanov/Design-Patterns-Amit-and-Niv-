@@ -18,17 +18,24 @@ namespace BasicFacebookFeatures
         private readonly FacebookObjectCollection<User> r_FriendsList;
         private DateTime m_StartTime;
         private DateTime m_EndTime;
-        private User m_UserLoggedIn;
+        private readonly User r_UserLoggedIn;
         private readonly List<UserBirthday> r_FriendsBirthdays;
 
         public FindAndPrepareBirthdaysForm(User i_UserLoggedIn)
         {
             InitializeComponent();
-            m_UserLoggedIn = i_UserLoggedIn;
-            r_FriendsList = m_UserLoggedIn.Friends;
+            r_UserLoggedIn = i_UserLoggedIn;
+            r_FriendsList = r_UserLoggedIn.Friends;
             r_FriendsBirthdays = new List<UserBirthday>();
-            profilePic.Image = m_UserLoggedIn.ImageNormal;
-            coverPic.Image = m_UserLoggedIn.Albums[1].Photos[0].ImageNormal;
+            profilePic.Image = r_UserLoggedIn.ImageNormal;
+            if (r_UserLoggedIn.Albums[1].Photos[0] != null)
+            {
+                coverPic.Image = r_UserLoggedIn.Albums[1].Photos[0].ImageNormal;
+            }
+            else
+            {
+                coverPic.ForeColor = Color.DodgerBlue;
+            }
         }
 
         public void FetchFriendsBirthdaysAtTime()

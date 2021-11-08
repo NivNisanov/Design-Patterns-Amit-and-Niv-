@@ -107,6 +107,7 @@ namespace BasicFacebookFeatures
             // 
             this.profilePic.Location = new System.Drawing.Point(254, 108);
             this.profilePic.Name = "profilePic";
+            this.profilePic.Padding = new System.Windows.Forms.Padding(5);
             this.profilePic.Size = new System.Drawing.Size(100, 100);
             this.profilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.profilePic.TabIndex = 7;

@@ -22,7 +22,15 @@ namespace BasicFacebookFeatures
             InitializeComponent();
             r_LoggedInUser = i_LoggedInUser;
             r_CommentGenerator = new CommentGenerator();
-            profilePictureBox.LoadAsync(r_LoggedInUser.PictureNormalURL);
+            profilePictureBox.Image = r_LoggedInUser.ImageSquare;
+            if (r_LoggedInUser.Albums[1].Photos[0] != null)
+            {
+                coverPic.Image = r_LoggedInUser.Albums[1].Photos[0].ImageNormal;
+            }
+            else
+            {
+                coverPic.ForeColor = Color.DodgerBlue;
+            }
             fetchPosts();
         }
 
@@ -86,7 +94,18 @@ namespace BasicFacebookFeatures
         private void generateBirthdayComment_click(object sender, EventArgs e)
         {
             suggestedCommentsLst.Visible = true;
+            commentSuggestionLable.Visible = true;
             displaySuggestedComments();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FormGenerateComment_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
