@@ -18,9 +18,9 @@ namespace BasicFacebookFeatures
         private const int k_SpacesBetweenPhotos = 23;
         private const int k_PhotosSquareSize = 100;
         private const int k_SlidePhotosYOffset = 5;
-        private const int k_SlidePhotosSpeed = 1;
+        private const int k_SlidePhotosMaxSpeed = 1;
         private User m_LoggedInUser;
-        private PictureBox[] m_PhotosArray = new PictureBox[k_NumberOfPhotos];
+        private readonly PictureBox[] r_PhotosArray = new PictureBox[k_NumberOfPhotos];
         private int m_PicturesSpeed = 1;
 
         public FormMain()
@@ -77,7 +77,7 @@ namespace BasicFacebookFeatures
         private void buttonLogout_Click(object sender, EventArgs e)
         {
 			FacebookService.LogoutWithUI();
-            HideUIAfterLogout();
+            hideUIAfterLogout();
         }
 
         private void generateCommentsButton_Click(object sender, EventArgs e)
@@ -112,7 +112,7 @@ namespace BasicFacebookFeatures
             friendsListBox.Visible = true;
             fetchFriends();
             userPictures.Visible = true;
-            ShowPhotos();
+            showPhotos();
             label1.Visible = true;
             label2.Visible = true;
         }
@@ -125,7 +125,7 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void HideUIAfterLogout()
+        private void hideUIAfterLogout()
         {
             profilePic.Visible = false;
             pictureBox1.Visible = false;
@@ -135,7 +135,7 @@ namespace BasicFacebookFeatures
             buttonLogin.Visible = true;
         }
 
-        private void ShowPhotos()
+        private void showPhotos()
         {
             fetchPhotos();
             stopWhenMouseOverPictures();
@@ -149,16 +149,16 @@ namespace BasicFacebookFeatures
         {
             userPictures.MouseEnter += hoverPictures_MouseEnter;
             userPictures.MouseLeave += hoverPictures_MouseLeave;
-            for (int i = 0; i < m_PhotosArray.Length; i++)
+            for (int i = 0; i < r_PhotosArray.Length; i++)
             {
-                m_PhotosArray[i].MouseEnter += hoverPictures_MouseEnter;
-                m_PhotosArray[i].MouseLeave += hoverPictures_MouseLeave;
+                r_PhotosArray[i].MouseEnter += hoverPictures_MouseEnter;
+                r_PhotosArray[i].MouseLeave += hoverPictures_MouseLeave;
             }
         }
 
         private void hoverPictures_MouseLeave(object sender, EventArgs e)
         {
-            m_PicturesSpeed = k_SlidePhotosSpeed;
+            m_PicturesSpeed = k_SlidePhotosMaxSpeed;
         }
 
         private void hoverPictures_MouseEnter(object sender, EventArgs e)
@@ -168,24 +168,24 @@ namespace BasicFacebookFeatures
 
         private void fetchPhotos()
         {
-            for (int i = 0; i < m_PhotosArray.Length; i++)
+            for (int i = 0; i < r_PhotosArray.Length; i++)
             {
                 int pictureIndex;
-                m_PhotosArray[i] = new PictureBox();
+                r_PhotosArray[i] = new PictureBox();
                 if (m_LoggedInUser.PhotosTaggedIn.Count != 0)
                 {
-                    m_PhotosArray[i].LoadAsync(getRandomUserPhoto(out pictureIndex, m_PhotosArray));
-                    m_PhotosArray[i].Name = pictureIndex.ToString();
+                    r_PhotosArray[i].LoadAsync(getRandomUserPhoto(out pictureIndex, r_PhotosArray));
+                    r_PhotosArray[i].Name = pictureIndex.ToString();
                 }
                 else
                 {
-                    m_PhotosArray[i].Image = null;
+                    r_PhotosArray[i].Image = null;
                 }
 
-                m_PhotosArray[i].SizeMode = PictureBoxSizeMode.StretchImage;
-                m_PhotosArray[i].Size = new Size(k_PhotosSquareSize, k_PhotosSquareSize);
-                m_PhotosArray[i].Location = new Point((i * k_PhotosSquareSize) + (k_SpacesBetweenPhotos * (i + 1)), userPictures.Location.Y + k_SlidePhotosYOffset);
-                Controls.Add(m_PhotosArray[i]);
+                r_PhotosArray[i].SizeMode = PictureBoxSizeMode.StretchImage;
+                r_PhotosArray[i].Size = new Size(k_PhotosSquareSize, k_PhotosSquareSize);
+                r_PhotosArray[i].Location = new Point((i * k_PhotosSquareSize) + (k_SpacesBetweenPhotos * (i + 1)), userPictures.Location.Y + k_SlidePhotosYOffset);
+                Controls.Add(r_PhotosArray[i]);
             }
             userPictures.SendToBack();
         }
@@ -228,23 +228,23 @@ namespace BasicFacebookFeatures
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            for (int i = 0; i < m_PhotosArray.Length; i++)
+            for (int i = 0; i < r_PhotosArray.Length; i++)
             {
-                m_PhotosArray[i].Left += m_PicturesSpeed;
-                if (m_PhotosArray[i].Location.X > this.Size.Width)
+                r_PhotosArray[i].Left += m_PicturesSpeed;
+                if (r_PhotosArray[i].Location.X > this.Size.Width)
                 {
                     int pictureIndex;
                     if (m_LoggedInUser.PhotosTaggedIn.Count != 0)
                     {
-                        m_PhotosArray[i].LoadAsync(getRandomUserPhoto(out pictureIndex, m_PhotosArray));
-                        m_PhotosArray[i].Name = pictureIndex.ToString();
+                        r_PhotosArray[i].LoadAsync(getRandomUserPhoto(out pictureIndex, r_PhotosArray));
+                        r_PhotosArray[i].Name = pictureIndex.ToString();
                     }
                     else
                     {
-                        m_PhotosArray[i].Image = null;
+                        r_PhotosArray[i].Image = null;
                     }
 
-                    m_PhotosArray[i].Location = new Point(-1 * m_PhotosArray[i].Size.Width, m_PhotosArray[i].Location.Y);
+                    r_PhotosArray[i].Location = new Point(-1 * r_PhotosArray[i].Size.Width, r_PhotosArray[i].Location.Y);
                 }
             }
         }
