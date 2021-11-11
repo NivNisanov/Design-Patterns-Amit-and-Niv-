@@ -87,7 +87,7 @@
             this.birthdaysWishesButton.Text = "Find And Prepare Birthday Wishes";
             this.birthdaysWishesButton.UseVisualStyleBackColor = true;
             this.birthdaysWishesButton.Visible = false;
-            this.birthdaysWishesButton.Click += new System.EventHandler(this.musicalEventsFinderButton_Click);
+            this.birthdaysWishesButton.Click += new System.EventHandler(this.birthdaysWishesButton_Click);
             // 
             // profilePic
             // 

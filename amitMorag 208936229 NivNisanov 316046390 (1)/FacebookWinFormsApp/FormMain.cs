@@ -86,10 +86,10 @@ namespace BasicFacebookFeatures
             formGenerateComment.Show();
         }
 
-        private void musicalEventsFinderButton_Click(object sender, EventArgs e)
+        private void birthdaysWishesButton_Click(object sender, EventArgs e)
         {
-            FindAndPrepareBirthdaysForm musicalForm = new FindAndPrepareBirthdaysForm(m_LoggedInUser);
-            musicalForm.Show();
+            FindAndPrepareBirthdaysForm findAndPrepareBirthdaysForm = new FindAndPrepareBirthdaysForm(m_LoggedInUser);
+            findAndPrepareBirthdaysForm.Show();
         }
 
         private void showUIAfterLogin()
