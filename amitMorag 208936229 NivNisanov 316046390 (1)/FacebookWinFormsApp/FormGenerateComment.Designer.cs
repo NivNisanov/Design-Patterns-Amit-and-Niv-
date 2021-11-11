@@ -134,6 +134,8 @@ namespace BasicFacebookFeatures
             this.Controls.Add(this.filterButton);
             this.Controls.Add(this.birthDayLabel);
             this.Controls.Add(this.coverPic);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FormGenerateComment";
             this.Text = "Form Generate Commen";
             this.Load += new System.EventHandler(this.FormGenerateComment_Load);

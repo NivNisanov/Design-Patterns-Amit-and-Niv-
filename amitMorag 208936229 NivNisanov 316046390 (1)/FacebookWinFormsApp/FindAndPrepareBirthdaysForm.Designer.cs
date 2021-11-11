@@ -65,14 +65,14 @@ namespace BasicFacebookFeatures
             // 
             this.startDateTimePicker.Location = new System.Drawing.Point(13, 230);
             this.startDateTimePicker.Name = "startDateTimePicker";
-            this.startDateTimePicker.Size = new System.Drawing.Size(200, 22);
+            this.startDateTimePicker.Size = new System.Drawing.Size(242, 22);
             this.startDateTimePicker.TabIndex = 2;
             // 
             // endDateTimePicker
             // 
             this.endDateTimePicker.Location = new System.Drawing.Point(13, 287);
             this.endDateTimePicker.Name = "endDateTimePicker";
-            this.endDateTimePicker.Size = new System.Drawing.Size(200, 22);
+            this.endDateTimePicker.Size = new System.Drawing.Size(242, 22);
             this.endDateTimePicker.TabIndex = 3;
             // 
             // label2
@@ -95,7 +95,7 @@ namespace BasicFacebookFeatures
             // 
             // searchEventsButton
             // 
-            this.searchEventsButton.Location = new System.Drawing.Point(49, 329);
+            this.searchEventsButton.Location = new System.Drawing.Point(85, 329);
             this.searchEventsButton.Name = "searchEventsButton";
             this.searchEventsButton.Size = new System.Drawing.Size(108, 42);
             this.searchEventsButton.TabIndex = 6;
@@ -149,6 +149,8 @@ namespace BasicFacebookFeatures
             this.Controls.Add(this.startDateTimePicker);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listOfEvents);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FindAndPrepareBirthdaysForm";
             this.Text = "Prepare Birthdays Form";
             ((System.ComponentModel.ISupportInitialize)(this.profilePic)).EndInit();

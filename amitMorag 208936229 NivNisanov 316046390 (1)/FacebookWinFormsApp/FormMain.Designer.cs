@@ -172,7 +172,9 @@
             this.Controls.Add(this.buttonLogout);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.userPictures);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Facebook App";
