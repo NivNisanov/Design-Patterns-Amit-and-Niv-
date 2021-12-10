@@ -16,7 +16,7 @@
         private bool m_IsUserMale = true;
         private readonly Random r_Randomizer = new Random();
 
-        public override string GenerateText(User i_PostAuthor)
+        public override string GenerateText(User i_PostAuthor, string i_BirthdayInString)
         {
             m_User = i_PostAuthor;
             generateFriendInfo();
@@ -58,14 +58,14 @@
         {
             // Get user of the post and determine gender.
 
-            if (m_User != null)
+            if(m_User != null)
             {
                 m_IsUserMale = (m_User.Gender == User.eGender.male);
-            }
 
-            // Get user age and determine if the comment should be Polite\Regular\Childish
-            int userAge = getUserAge();
-            m_IsPolite = (userAge >= k_PoliteAge);
+                // Get user age and determine if the comment should be Polite\Regular
+                int userAge = getUserAgeFromString(DateTime.Now.ToString("MM/dd/yyyy"));
+                m_IsPolite = (userAge >= k_PoliteAge);
+            }
         }
     }
 

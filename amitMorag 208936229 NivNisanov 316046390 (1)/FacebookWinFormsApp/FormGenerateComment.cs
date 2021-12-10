@@ -79,7 +79,13 @@ namespace BasicFacebookFeatures
             {
                 if (item is Post birthdayPost)
                 {
-                    string replyMessage = r_CommentGenerator.GenerateText(birthdayPost.From);
+                    User author = birthdayPost.From;
+                    string birthday = null;
+                    if(author != null)
+                    {
+                        birthday = author.Birthday;
+                    }
+                    string replyMessage = r_CommentGenerator.GenerateText(author, birthday);
                     suggestedCommentsLst.Items.Add(replyMessage);
                 }
             }

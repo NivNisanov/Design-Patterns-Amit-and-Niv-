@@ -19,7 +19,7 @@ namespace BasicFacebookFeatures
             r_BirthdayWishGenerator = new BirthdayWishGenerator();
             m_User = i_User;
             m_BirthdayDate = i_BirthdayDate;
-            m_BirthdayWish = r_BirthdayWishGenerator.GenerateText(i_User);
+            m_BirthdayWish = r_BirthdayWishGenerator.GenerateText(i_User, m_BirthdayDate.ToString("MM/dd/yyyy"));
         }
 
         public User User

@@ -12,25 +12,25 @@ namespace BasicFacebookFeatures
     {
         protected User m_User;
 
-        public abstract string GenerateText(User i_User);
+        public abstract string GenerateText(User i_User, string i_BirthdayInStringy);
         
-        protected int getUserAge()
+        protected int getUserAgeFromString(string i_BirthdayInString)
         {
-            DateTime userAge = getUserBirthdayInDateTime(m_User);
-            int userAgeInDays = (int)(DateTime.Now - userAge).TotalDays;
+            DateTime userUpcomingBirthday = getUserBirthdayInDateTime(i_BirthdayInString);
+            DateTime userBirthday = getUserBirthdayInDateTime(m_User.Birthday);
+            int userAgeInDays = (int)(userUpcomingBirthday - userBirthday).TotalDays;
 
             return userAgeInDays / 365;
         }
 
-        private DateTime getUserBirthdayInDateTime(User i_User)
+        private DateTime getUserBirthdayInDateTime(string i_BirthdayInString)
         {
-            //return DateTime.Parse(i_User.Birthday, new CultureInfo("en-CA"));
             DateTime userBirthdayDateTime = DateTime.Today;
 
-            if (i_User?.Birthday != null)
+            if (i_BirthdayInString != null)
             {
-                string userBirthdayString = i_User.Birthday;
-                string[] birthdayStringSplit = userBirthdayString.Split('/');
+                //string userBirthdayString = i_User.Birthday;
+                string[] birthdayStringSplit = i_BirthdayInString.Split('/');
                 int[] birthdayIntSplit = Array.ConvertAll(birthdayStringSplit, int.Parse);
                 userBirthdayDateTime = new DateTime(birthdayIntSplit[2], birthdayIntSplit[0], birthdayIntSplit[1]);
             }
