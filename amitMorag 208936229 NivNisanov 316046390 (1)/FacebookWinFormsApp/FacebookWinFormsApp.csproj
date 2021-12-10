@@ -110,6 +110,7 @@
     <Compile Include="FindAndPrepareBirthdaysForm.Designer.cs">
       <DependentUpon>FindAndPrepareBirthdaysForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MainFormSingleton.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BirthdayWishGenerator.cs" />
@@ -136,6 +137,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\FacebookWrapper.ObjectModel.FriendList.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

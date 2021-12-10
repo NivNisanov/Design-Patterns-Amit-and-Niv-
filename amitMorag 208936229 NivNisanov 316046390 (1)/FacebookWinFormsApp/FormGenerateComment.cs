@@ -17,10 +17,10 @@ namespace BasicFacebookFeatures
         private readonly User r_LoggedInUser;
         private readonly CommentGenerator r_CommentGenerator;
 
-        public FormGenerateComment(User i_LoggedInUser)
+        public FormGenerateComment()
         {
             InitializeComponent();
-            r_LoggedInUser = i_LoggedInUser;
+            r_LoggedInUser = MainFormSingleton.Instance.LoggedInUser;
             r_CommentGenerator = new CommentGenerator();
             profilePictureBox.Image = r_LoggedInUser.ImageSquare;
             if (r_LoggedInUser.Albums[1].Photos[0] != null)

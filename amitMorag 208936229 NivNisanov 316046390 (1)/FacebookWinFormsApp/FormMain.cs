@@ -82,13 +82,13 @@ namespace BasicFacebookFeatures
 
         private void generateCommentsButton_Click(object sender, EventArgs e)
         {
-            FormGenerateComment formGenerateComment = new FormGenerateComment(m_LoggedInUser);
+            FormGenerateComment formGenerateComment = new FormGenerateComment();
             formGenerateComment.Show();
         }
 
         private void birthdaysWishesButton_Click(object sender, EventArgs e)
         {
-            FindAndPrepareBirthdaysForm findAndPrepareBirthdaysForm = new FindAndPrepareBirthdaysForm(m_LoggedInUser);
+            FindAndPrepareBirthdaysForm findAndPrepareBirthdaysForm = new FindAndPrepareBirthdaysForm();
             findAndPrepareBirthdaysForm.Show();
         }
 
@@ -107,6 +107,7 @@ namespace BasicFacebookFeatures
             }
 
             generateCommentsButton.Visible = true;
+            dataBindingPanel.Visible = true;
             birthdaysWishesButton.Visible = true;
             buttonLogout.Visible = true;
             friendsListBox.Visible = true;
@@ -119,10 +120,12 @@ namespace BasicFacebookFeatures
 
         private void fetchFriends()
         {
-            foreach(User friend in m_LoggedInUser.Friends)
-            {
-                friendsListBox.Items.Add(friend.Name);
-            }
+            //foreach(User friend in m_LoggedInUser.Friends)
+            //{
+            //    friendsListBox.Items.Add(friend.Name);
+            //}
+
+            membersBindingSource.DataSource = m_LoggedInUser.Friends;
         }
 
         private void hideUIAfterLogout()
@@ -132,6 +135,7 @@ namespace BasicFacebookFeatures
             generateCommentsButton.Visible = false;
             birthdaysWishesButton.Visible = false;
             buttonLogout.Visible = false;
+            dataBindingPanel.Visible = false;
             buttonLogin.Visible = true;
         }
 

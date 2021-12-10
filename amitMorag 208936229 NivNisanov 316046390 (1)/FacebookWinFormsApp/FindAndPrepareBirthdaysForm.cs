@@ -21,10 +21,10 @@ namespace BasicFacebookFeatures
         private readonly User r_UserLoggedIn;
         private readonly List<UserBirthday> r_FriendsBirthdays;
 
-        public FindAndPrepareBirthdaysForm(User i_UserLoggedIn)
+        public FindAndPrepareBirthdaysForm()
         {
             InitializeComponent();
-            r_UserLoggedIn = i_UserLoggedIn;
+            r_UserLoggedIn = MainFormSingleton.Instance.LoggedInUser;
             r_FriendsList = r_UserLoggedIn.Friends;
             r_FriendsBirthdays = new List<UserBirthday>();
             profilePic.Image = r_UserLoggedIn.ImageNormal;
