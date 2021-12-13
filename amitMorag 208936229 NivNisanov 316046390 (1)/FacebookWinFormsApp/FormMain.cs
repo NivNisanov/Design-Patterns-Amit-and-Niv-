@@ -82,13 +82,13 @@ namespace BasicFacebookFeatures
 
         private void generateCommentsButton_Click(object sender, EventArgs e)
         {
-            FormGenerateComment formGenerateComment = new FormGenerateComment();
+            Form formGenerateComment = FormFactory.createForm("generateComment");
             formGenerateComment.Show();
         }
 
         private void birthdaysWishesButton_Click(object sender, EventArgs e)
         {
-            FindAndPrepareBirthdaysForm findAndPrepareBirthdaysForm = new FindAndPrepareBirthdaysForm();
+            Form findAndPrepareBirthdaysForm = FormFactory.createForm("findAndPrepareBirthdayWishesToExel");
             findAndPrepareBirthdaysForm.Show();
         }
 
