@@ -23,7 +23,7 @@ namespace BasicFacebookFeatures
         private readonly PictureBox[] r_PhotosArray = new PictureBox[k_NumberOfPhotos];
         private int m_PicturesSpeed = 1;
 
-        public FormMain()
+        private FormMain()
         {
             InitializeComponent();
             FacebookWrapper.FacebookService.s_CollectionLimit = 100;
