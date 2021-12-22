@@ -18,7 +18,7 @@
 
         public override string GenerateText(User i_PostAuthor, string i_BirthdayInString)
         {
-            m_User = i_PostAuthor;
+            User = i_PostAuthor;
             generateFriendInfo();
             string comment = generateCommentBasedOnInfo();
             return comment;
@@ -39,7 +39,7 @@
                 string politeEnding = m_PoliteEndingWords[r_Randomizer.Next(m_PoliteEndingWords.Length)];
 
                 generatedComment = string.Format(k_GeneralPoliteThankYouComment,
-                    politeOpening, timeOfDayGreeting, m_User.Name, politeThanks, politeEnding);
+                    politeOpening, timeOfDayGreeting, User.Name, politeThanks, politeEnding);
             }
             else
             {
@@ -58,9 +58,9 @@
         {
             // Get user of the post and determine gender.
 
-            if(m_User != null)
+            if(User != null)
             {
-                m_IsUserMale = (m_User.Gender == User.eGender.male);
+                m_IsUserMale = (User.Gender == User.eGender.male);
 
                 // Get user age and determine if the comment should be Polite\Regular
                 int userAge = getUserAgeFromString(DateTime.Now.ToString("MM/dd/yyyy"));

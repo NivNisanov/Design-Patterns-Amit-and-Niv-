@@ -18,15 +18,16 @@ namespace BasicFacebookFeatures
                                         "I hope all your birthday wishes and dreams come true",
                                         "May the joy that you have spread in the past come back to you on this day"
                                     };
+        
         private readonly Random r_Randomizer = new Random();
 
         public override string GenerateText(User i_Friend, string i_BirthdayInString)
         {
-            m_User = i_Friend;
+            User = i_Friend;
             string opening = r_Greetings[r_Randomizer.Next(r_Greetings.Length)];
             string wish = r_Wishes[r_Randomizer.Next(r_Wishes.Length)];
 
-            return $"{opening} {m_User.FirstName}, Happy {getUserAgeFromString(i_BirthdayInString)} Birthday! {wish}";
+            return $"{opening} {User.FirstName}, Happy {getUserAgeFromString(i_BirthdayInString)} Birthday! {wish}";
         }
     }
 }

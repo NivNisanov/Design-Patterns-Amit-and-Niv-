@@ -12,46 +12,53 @@ namespace BasicFacebookFeatures
 {
     public class CalendarCreator
     {
-        private StringBuilder calendarFormat = new StringBuilder();
-        string m_DateFormat = "yyyyMMdd";
-        readonly string r_CurrentTime;
-        private int m_NumberOfEvents;
-        private string m_NameOfFile;
+        private StringBuilder CalendarFormat { get;}
+        //private StringBuilder calendarFormat = new StringBuilder();
+        private string DateFormat {get;}
+        //string m_DateFormat = "yyyyMMdd";
+        private string CurrentTime {get;}
+        //readonly string r_CurrentTime;
+        private int NumberOfEvents { get; set;}
+        //private int m_NumberOfEvents;
+        private string NameOfFile { get; set; }
+        //private string m_NameOfFile;
 
         public CalendarCreator()
         {
-            m_NumberOfEvents = 0;
-            r_CurrentTime = DateTime.Now.ToUniversalTime().ToString(m_DateFormat);
-            calendarFormat.AppendLine("BEGIN:VCALENDAR");
-            calendarFormat.AppendLine("PRODID:Birthdays Helper");
-            calendarFormat.AppendLine("VERSION:2.0");
-            calendarFormat.AppendLine("METHOD:PUBLISH");
+            CalendarFormat = new StringBuilder();
+            DateFormat = "yyyyMMdd";
+            NumberOfEvents = 0;
+            CurrentTime = DateTime.Now.ToUniversalTime().ToString(DateFormat);
+            CalendarFormat.AppendLine("BEGIN:VCALENDAR");
+            CalendarFormat.AppendLine("PRODID:Birthdays Helper");
+            CalendarFormat.AppendLine("VERSION:2.0");
+            CalendarFormat.AppendLine("METHOD:PUBLISH");
             
         }
 
         public void AddEvent(DateTime i_Date, User i_Friend, string i_Description)
         {
-            calendarFormat.AppendLine("BEGIN:VEVENT");
-            calendarFormat.AppendLine("DTSTART;VALUE=DATE:" + i_Date.ToString(m_DateFormat));
-            calendarFormat.AppendLine("DTSTAMP:" + r_CurrentTime);
-            calendarFormat.AppendLine("UID:" + Guid.NewGuid());
-            calendarFormat.AppendLine("CREATED:" + r_CurrentTime);
+            CalendarFormat.AppendLine("BEGIN:VEVENT");
+            CalendarFormat.AppendLine("DTSTART;VALUE=DATE:" + i_Date.ToString(DateFormat));
+            CalendarFormat.AppendLine("DTSTAMP:" + CurrentTime);
+            CalendarFormat.AppendLine("UID:" + Guid.NewGuid());
+            CalendarFormat.AppendLine("CREATED:" + CurrentTime);
             //calendarFormat.AppendLine("X-ALT-DESC;FMTTYPE=text/html:" + res.DetailsHTML);
-            calendarFormat.AppendLine($"DESCRIPTION:{i_Description}");
-            calendarFormat.AppendLine($"LAST-MODIFIED:{r_CurrentTime}");
-            calendarFormat.AppendLine($"SUMMARY:{i_Friend.Name} Birthday");
-            calendarFormat.AppendLine("END:VEVENT");
-            m_NumberOfEvents++;
+            CalendarFormat.AppendLine($"DESCRIPTION:{i_Description}");
+            CalendarFormat.AppendLine($"LAST-MODIFIED:{CurrentTime}");
+            CalendarFormat.AppendLine($"SUMMARY:{i_Friend.Name} Birthday");
+            CalendarFormat.AppendLine("END:VEVENT");
+            NumberOfEvents++;
         }
 
         public void ExportCalendar(string i_NameofFile)
         {
-            m_NameOfFile = i_NameofFile;
-            StringBuilder calendarForExport = calendarFormat;
+            NameOfFile = i_NameofFile;
+            StringBuilder calendarForExport = CalendarFormat;
             calendarForExport.AppendLine("END:VCALENDAR");
 
-            string dirParameter = AppDomain.CurrentDomain.BaseDirectory + $@"\{m_NameOfFile}.ics";
-            string Msg = calendarFormat.ToString();
+            string dirParameter = AppDomain.CurrentDomain.BaseDirectory + $@"\{NameOfFile}.ics";
+            string Msg = CalendarFormat.ToString();
 
             FileStream fParameter = new FileStream(dirParameter, FileMode.Create, FileAccess.Write);
             StreamWriter m_WriterParameter = new StreamWriter(fParameter);
@@ -63,7 +70,7 @@ namespace BasicFacebookFeatures
 
         public void OpenCalendar()
         {
-            System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory + $@"\{m_NameOfFile}.ics");
+            System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory + $@"\{NameOfFile}.ics");
         }
     }
 }

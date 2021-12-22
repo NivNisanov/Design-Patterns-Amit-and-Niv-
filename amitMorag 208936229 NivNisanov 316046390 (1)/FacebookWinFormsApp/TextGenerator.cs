@@ -10,14 +10,15 @@ namespace BasicFacebookFeatures
 {
     public abstract class TextGenerator
     {
-        protected User m_User;
+        protected User User { get; set; }
+        //protected User User;
 
         public abstract string GenerateText(User i_User, string i_BirthdayInStringy);
         
         protected int getUserAgeFromString(string i_BirthdayInString)
         {
             DateTime userUpcomingBirthday = getUserBirthdayInDateTime(i_BirthdayInString);
-            DateTime userBirthday = getUserBirthdayInDateTime(m_User.Birthday);
+            DateTime userBirthday = getUserBirthdayInDateTime(User.Birthday);
             int userAgeInDays = (int)(userUpcomingBirthday - userBirthday).TotalDays;
 
             return userAgeInDays / 365;
