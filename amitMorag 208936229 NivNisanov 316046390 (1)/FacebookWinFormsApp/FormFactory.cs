@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace BasicFacebookFeatures
 {
-    public class FormFactory
+    public static class FormFactory
     {
         public static Form createForm(string i_formToCreate)
         {
