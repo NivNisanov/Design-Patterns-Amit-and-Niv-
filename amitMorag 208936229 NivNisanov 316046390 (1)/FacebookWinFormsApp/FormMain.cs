@@ -97,9 +97,7 @@ namespace BasicFacebookFeatures
 
         private void birthdaysWishesButton_Click(object sender, EventArgs e)
         {
-            Form findAndPrepareBirthdaysForm = FormFactory.createForm("findAndPrepareBirthdayWishesToExel");
-            findAndPrepareBirthdaysForm.Show();
-          //  new Thread(runBirthdayWithesToExel).Start();
+            new Thread(runBirthdayWithesToExel).Start();
         }
         private void runBirthdayWithesToExel()
         {
