@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="CalendarCreator.cs" />
     <Compile Include="CommentGenerator.cs" />
+    <Compile Include="FacebookAppLogicFacade.cs" />
     <Compile Include="FormFactory.cs" />
     <Compile Include="FormGenerateComment.cs">
       <SubType>Form</SubType>

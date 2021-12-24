@@ -22,7 +22,7 @@ namespace BasicFacebookFeatures
                 return new FormGenerateComment();
             }
 
-            if (i_formToCreate.Equals("findAndPrepareBirthdayWishesToExel"))
+            if (i_formToCreate.Equals("findAndPrepareBirthdayWishesToCal"))
             {
                 return new FindAndPrepareBirthdaysForm();
             }

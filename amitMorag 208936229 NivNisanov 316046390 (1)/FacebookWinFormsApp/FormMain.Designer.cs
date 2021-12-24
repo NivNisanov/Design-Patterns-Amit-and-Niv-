@@ -41,28 +41,55 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.userPictures = new System.Windows.Forms.PictureBox();
             this.friendsListBox = new System.Windows.Forms.ListBox();
+            this.membersBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.dataBindingPanel = new System.Windows.Forms.Panel();
-            this.membersBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.countLabel1 = new System.Windows.Forms.Label();
+            this.albumsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.birthdayLabel1 = new System.Windows.Forms.Label();
             this.imageSquarePictureBox = new System.Windows.Forms.PictureBox();
             this.nameLabel1 = new System.Windows.Forms.Label();
             this.wallPostsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.albumsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.countLabel1 = new System.Windows.Forms.Label();
             birthdayLabel = new System.Windows.Forms.Label();
             nameLabel = new System.Windows.Forms.Label();
             countLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.profilePic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userPictures)).BeginInit();
-            this.dataBindingPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.membersBindingSource)).BeginInit();
+            this.dataBindingPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.albumsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageSquarePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wallPostsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.albumsBindingSource)).BeginInit();
             this.SuspendLayout();
+            // 
+            // birthdayLabel
+            // 
+            birthdayLabel.AutoSize = true;
+            birthdayLabel.Location = new System.Drawing.Point(3, 102);
+            birthdayLabel.Name = "birthdayLabel";
+            birthdayLabel.Size = new System.Drawing.Size(64, 17);
+            birthdayLabel.TabIndex = 0;
+            birthdayLabel.Text = "Birthday:";
+            // 
+            // nameLabel
+            // 
+            nameLabel.AutoSize = true;
+            nameLabel.Location = new System.Drawing.Point(3, 77);
+            nameLabel.Name = "nameLabel";
+            nameLabel.Size = new System.Drawing.Size(49, 17);
+            nameLabel.TabIndex = 4;
+            nameLabel.Text = "Name:";
+            // 
+            // countLabel
+            // 
+            countLabel.AutoSize = true;
+            countLabel.Location = new System.Drawing.Point(3, 125);
+            countLabel.Name = "countLabel";
+            countLabel.Size = new System.Drawing.Size(131, 17);
+            countLabel.TabIndex = 5;
+            countLabel.Text = "Number Of Albums:";
             // 
             // buttonLogin
             // 
@@ -156,6 +183,10 @@
             this.friendsListBox.TabIndex = 58;
             this.friendsListBox.Visible = false;
             // 
+            // membersBindingSource
+            // 
+            this.membersBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.User);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -165,7 +196,7 @@
             this.label1.TabIndex = 59;
             this.label1.Text = "Friends:";
             this.label1.Visible = false;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            //this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -194,25 +225,26 @@
             this.dataBindingPanel.TabIndex = 61;
             this.dataBindingPanel.Visible = false;
             // 
-            // membersBindingSource
+            // countLabel1
             // 
-            this.membersBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.User);
+            this.countLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.albumsBindingSource, "Count", true));
+            this.countLabel1.Location = new System.Drawing.Point(129, 125);
+            this.countLabel1.Name = "countLabel1";
+            this.countLabel1.Size = new System.Drawing.Size(49, 23);
+            this.countLabel1.TabIndex = 6;
+            this.countLabel1.Text = "label3";
             // 
-            // birthdayLabel
+            // albumsBindingSource
             // 
-            birthdayLabel.AutoSize = true;
-            birthdayLabel.Location = new System.Drawing.Point(3, 102);
-            birthdayLabel.Name = "birthdayLabel";
-            birthdayLabel.Size = new System.Drawing.Size(64, 17);
-            birthdayLabel.TabIndex = 0;
-            birthdayLabel.Text = "Birthday:";
+            this.albumsBindingSource.DataMember = "Albums";
+            this.albumsBindingSource.DataSource = this.membersBindingSource;
             // 
             // birthdayLabel1
             // 
             this.birthdayLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.membersBindingSource, "Birthday", true));
             this.birthdayLabel1.Location = new System.Drawing.Point(73, 102);
             this.birthdayLabel1.Name = "birthdayLabel1";
-            this.birthdayLabel1.Size = new System.Drawing.Size(84, 23);
+            this.birthdayLabel1.Size = new System.Drawing.Size(98, 23);
             this.birthdayLabel1.TabIndex = 1;
             this.birthdayLabel1.Text = "label3";
             // 
@@ -225,21 +257,12 @@
             this.imageSquarePictureBox.TabIndex = 3;
             this.imageSquarePictureBox.TabStop = false;
             // 
-            // nameLabel
-            // 
-            nameLabel.AutoSize = true;
-            nameLabel.Location = new System.Drawing.Point(3, 77);
-            nameLabel.Name = "nameLabel";
-            nameLabel.Size = new System.Drawing.Size(49, 17);
-            nameLabel.TabIndex = 4;
-            nameLabel.Text = "Name:";
-            // 
             // nameLabel1
             // 
             this.nameLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.membersBindingSource, "Name", true));
             this.nameLabel1.Location = new System.Drawing.Point(73, 77);
             this.nameLabel1.Name = "nameLabel1";
-            this.nameLabel1.Size = new System.Drawing.Size(84, 23);
+            this.nameLabel1.Size = new System.Drawing.Size(98, 23);
             this.nameLabel1.TabIndex = 5;
             this.nameLabel1.Text = "label3";
             // 
@@ -247,29 +270,6 @@
             // 
             this.wallPostsBindingSource.DataMember = "WallPosts";
             this.wallPostsBindingSource.DataSource = this.membersBindingSource;
-            // 
-            // albumsBindingSource
-            // 
-            this.albumsBindingSource.DataMember = "Albums";
-            this.albumsBindingSource.DataSource = this.membersBindingSource;
-            // 
-            // countLabel
-            // 
-            countLabel.AutoSize = true;
-            countLabel.Location = new System.Drawing.Point(3, 125);
-            countLabel.Name = "countLabel";
-            countLabel.Size = new System.Drawing.Size(131, 17);
-            countLabel.TabIndex = 5;
-            countLabel.Text = "Number Of Albums:";
-            // 
-            // countLabel1
-            // 
-            this.countLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.albumsBindingSource, "Count", true));
-            this.countLabel1.Location = new System.Drawing.Point(129, 125);
-            this.countLabel1.Name = "countLabel1";
-            this.countLabel1.Size = new System.Drawing.Size(49, 23);
-            this.countLabel1.TabIndex = 6;
-            this.countLabel1.Text = "label3";
             // 
             // FormMain
             // 
@@ -294,15 +294,16 @@
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Facebook App";
+            //this.Load += new System.EventHandler(this.FormMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.profilePic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userPictures)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.membersBindingSource)).EndInit();
             this.dataBindingPanel.ResumeLayout(false);
             this.dataBindingPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.membersBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.albumsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageSquarePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.wallPostsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.albumsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

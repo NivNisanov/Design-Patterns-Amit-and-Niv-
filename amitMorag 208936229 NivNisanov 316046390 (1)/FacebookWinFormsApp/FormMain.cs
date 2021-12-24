@@ -15,18 +15,12 @@ namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
-        private const int k_NumberOfPhotos = 6;
-        private const int k_TimeInterval = 30;
-        private const int k_SpacesBetweenPhotos = 23;
-        private const int k_PhotosSquareSize = 100;
-        private const int k_SlidePhotosYOffset = 5;
-        private const int k_SlidePhotosMaxSpeed = 1;
         private User m_LoggedInUser;
-        private readonly PictureBox[] r_PhotosArray = new PictureBox[k_NumberOfPhotos];
-        private int m_PicturesSpeed = 1;
+        private readonly FacebookAppLogicFacade r_AppLogicFacade;
 
         private FormMain()
         {
+            r_AppLogicFacade = new FacebookAppLogicFacade();
             InitializeComponent();
             FacebookWrapper.FacebookService.s_CollectionLimit = 100;
         }
@@ -97,17 +91,17 @@ namespace BasicFacebookFeatures
 
         private void birthdaysWishesButton_Click(object sender, EventArgs e)
         {
-            new Thread(runBirthdayWithesToExel).Start();
+            new Thread(runBirthdayWishesToCal).Start();
         }
-        private void runBirthdayWithesToExel()
+        private void runBirthdayWishesToCal()
         {
             birthdaysWishesButton.Invoke(new Action(() => {
-                Form findAndPrepareBirthdaysForm = FormFactory.createForm("findAndPrepareBirthdayWishesToExel");
+                Form findAndPrepareBirthdaysForm = FormFactory.createForm("findAndPrepareBirthdayWishesToCal");
                 findAndPrepareBirthdaysForm.Show();
             }));
         }
 
-        private void showUIAfterLogin()
+        private void showUIAfterLogin() 
         {
             profilePic.Visible = true;
             profilePic.Image = m_LoggedInUser.ImageNormal;
@@ -126,24 +120,15 @@ namespace BasicFacebookFeatures
             birthdaysWishesButton.Visible = true;
             buttonLogout.Visible = true;
             friendsListBox.Visible = true;
-            fetchFriends();
+            r_AppLogicFacade.FetchFriends(membersBindingSource);
             userPictures.Visible = true;
             showPhotos();
+            userPictures.SendToBack();
             label1.Visible = true;
             label2.Visible = true;
         }
 
-        private void fetchFriends()
-        {
-            //foreach(User friend in m_LoggedInUser.Friends)
-            //{
-            //    friendsListBox.Items.Add(friend.Name);
-            //}
-
-            membersBindingSource.DataSource = m_LoggedInUser.Friends;
-        }
-
-        private void hideUIAfterLogout()
+        private void hideUIAfterLogout() 
         {
             profilePic.Visible = false;
             pictureBox1.Visible = false;
@@ -154,123 +139,22 @@ namespace BasicFacebookFeatures
             buttonLogin.Visible = true;
         }
 
+        private void fetchPhotos(PictureBox[] i_PhotosArray)
+        {
+            r_AppLogicFacade.FetchPhotos(i_PhotosArray, userPictures.Location);
+
+            foreach(PictureBox picture in i_PhotosArray)
+            {
+                Controls.Add(picture);
+            }
+        }
+
         private void showPhotos()
         {
-            fetchPhotos();
-            stopWhenMouseOverPictures();
-            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
-            timer.Interval = k_TimeInterval;
-            timer.Tick += timer_Tick;
-            timer.Start();
-        }
-
-        private void stopWhenMouseOverPictures()
-        {
-            userPictures.MouseEnter += hoverPictures_MouseEnter;
-            userPictures.MouseLeave += hoverPictures_MouseLeave;
-            for (int i = 0; i < r_PhotosArray.Length; i++)
-            {
-                r_PhotosArray[i].MouseEnter += hoverPictures_MouseEnter;
-                r_PhotosArray[i].MouseLeave += hoverPictures_MouseLeave;
-            }
-        }
-
-        private void hoverPictures_MouseLeave(object sender, EventArgs e)
-        {
-            m_PicturesSpeed = k_SlidePhotosMaxSpeed;
-        }
-
-        private void hoverPictures_MouseEnter(object sender, EventArgs e)
-        {
-            m_PicturesSpeed = 0;
-        }
-
-        private void fetchPhotos()
-        {
-            for (int i = 0; i < r_PhotosArray.Length; i++)
-            {
-                int pictureIndex;
-                r_PhotosArray[i] = new PictureBox();
-                if (m_LoggedInUser.PhotosTaggedIn.Count != 0)
-                {
-                    r_PhotosArray[i].LoadAsync(getRandomUserPhoto(out pictureIndex, r_PhotosArray));
-                    r_PhotosArray[i].Name = pictureIndex.ToString();
-                }
-                else
-                {
-                    r_PhotosArray[i].Image = null;
-                }
-
-                r_PhotosArray[i].SizeMode = PictureBoxSizeMode.StretchImage;
-                r_PhotosArray[i].Size = new Size(k_PhotosSquareSize, k_PhotosSquareSize);
-                r_PhotosArray[i].Location = new Point((i * k_PhotosSquareSize) + (k_SpacesBetweenPhotos * (i + 1)), userPictures.Location.Y + k_SlidePhotosYOffset);
-                Controls.Add(r_PhotosArray[i]);
-            }
-            userPictures.SendToBack();
-        }
-
-        private string getRandomUserPhoto(out int o_PictureIndex, PictureBox[] i_PhotosArray)
-        {
-            Random random = new Random();
-            int countOfPhotosTaggedIn = m_LoggedInUser.PhotosTaggedIn.Count;
-            int randomNumber = random.Next(0, countOfPhotosTaggedIn);
-
-            while (countOfPhotosTaggedIn > k_NumberOfPhotos && photoAlreadyShown(randomNumber, i_PhotosArray))
-            {
-                randomNumber = random.Next(0, countOfPhotosTaggedIn);
-            }
-
-            o_PictureIndex = randomNumber;
-            string url = m_LoggedInUser.PhotosTaggedIn[randomNumber].PictureNormalURL;
-
-            return url;
-        }
-
-        private bool photoAlreadyShown(int i_NameOfPhoto, PictureBox[] i_PhotosArray)
-        {
-            int i = 0;
-            bool photoExists = false;
-
-            while (i < i_PhotosArray.Length && i_PhotosArray[i] != null)
-            {
-                if (i_PhotosArray[i].Name == i_NameOfPhoto.ToString())
-                {
-                    photoExists = true;
-                    break;
-                }
-
-                i++;
-            }
-
-            return photoExists;
-        }
-
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            for (int i = 0; i < r_PhotosArray.Length; i++)
-            {
-                r_PhotosArray[i].Left += m_PicturesSpeed;
-                if (r_PhotosArray[i].Location.X > this.Size.Width)
-                {
-                    int pictureIndex;
-                    if (m_LoggedInUser.PhotosTaggedIn.Count != 0)
-                    {
-                        r_PhotosArray[i].LoadAsync(getRandomUserPhoto(out pictureIndex, r_PhotosArray));
-                        r_PhotosArray[i].Name = pictureIndex.ToString();
-                    }
-                    else
-                    {
-                        r_PhotosArray[i].Image = null;
-                    }
-
-                    r_PhotosArray[i].Location = new Point(-1 * r_PhotosArray[i].Size.Width, r_PhotosArray[i].Location.Y);
-                }
-            }
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
+            PictureBox[] photosArray = new PictureBox[6];
+            fetchPhotos(photosArray);
+            r_AppLogicFacade.StopWhenMouseOverPictures(userPictures);
+            r_AppLogicFacade.MovePhotos(this.Size.Width);
         }
     }
 }
