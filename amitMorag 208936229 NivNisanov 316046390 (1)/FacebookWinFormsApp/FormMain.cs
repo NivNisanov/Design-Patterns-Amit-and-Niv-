@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
+using System.Threading;
+
 
 namespace BasicFacebookFeatures
 {
@@ -82,14 +84,29 @@ namespace BasicFacebookFeatures
 
         private void generateCommentsButton_Click(object sender, EventArgs e)
         {
-            Form formGenerateComment = FormFactory.createForm("generateComment");
-            formGenerateComment.Show();
+            new Thread(runGenerateCommentFeature).Start();
+        }
+        private void runGenerateCommentFeature()
+        {
+            generateCommentsButton.Invoke(new Action(() => {
+                Form formGenerateComment = FormFactory.createForm("generateComment");
+                formGenerateComment.Show();
+            }));
+
         }
 
         private void birthdaysWishesButton_Click(object sender, EventArgs e)
         {
             Form findAndPrepareBirthdaysForm = FormFactory.createForm("findAndPrepareBirthdayWishesToExel");
             findAndPrepareBirthdaysForm.Show();
+          //  new Thread(runBirthdayWithesToExel).Start();
+        }
+        private void runBirthdayWithesToExel()
+        {
+            birthdaysWishesButton.Invoke(new Action(() => {
+                Form findAndPrepareBirthdaysForm = FormFactory.createForm("findAndPrepareBirthdayWishesToExel");
+                findAndPrepareBirthdaysForm.Show();
+            }));
         }
 
         private void showUIAfterLogin()
@@ -143,7 +160,7 @@ namespace BasicFacebookFeatures
         {
             fetchPhotos();
             stopWhenMouseOverPictures();
-            Timer timer = new Timer();
+            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
             timer.Interval = k_TimeInterval;
             timer.Tick += timer_Tick;
             timer.Start();
