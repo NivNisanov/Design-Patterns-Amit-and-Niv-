@@ -68,6 +68,9 @@ namespace BasicFacebookFeatures
             {
                 MessageBox.Show("Log in Failed","ERROR",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
+
+            Thread t0 = Thread.CurrentThread;
+            Console.WriteLine("main = " + t0.ManagedThreadId); //REMOVE
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
@@ -86,7 +89,6 @@ namespace BasicFacebookFeatures
                 Form formGenerateComment = FormFactory.createForm("generateComment");
                 formGenerateComment.Show();
             }));
-
         }
 
         private void birthdaysWishesButton_Click(object sender, EventArgs e)

@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace BasicFacebookFeatures
 {
@@ -66,11 +67,11 @@ namespace BasicFacebookFeatures
 
         protected void PopulateListBoxOfType<T>(IEnumerable<T> i_Items, ListBox i_ListBox)
         {
-            i_ListBox.Items.Clear();
+            i_ListBox.Invoke(new Action(() => i_ListBox.Items.Clear()));
 
             foreach (T item in i_Items)
             {
-                i_ListBox.Items.Add(item);
+                i_ListBox.Invoke(new Action(() => i_ListBox.Items.Add(item)));
             }
         }
         private void displaySuggestedComments()
