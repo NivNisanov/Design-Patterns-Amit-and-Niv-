@@ -18,7 +18,7 @@ namespace BasicFacebookFeatures
             FacebookService.s_UseForamttedToStrings = true;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(MainFormSingleton.Instance);
+            Application.Run(FormMain.Instance);
         }
     }
 }

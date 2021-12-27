@@ -13,10 +13,31 @@ using System.Threading;
 
 namespace BasicFacebookFeatures
 {
-    public partial class FormMain : Form
+    public sealed partial class FormMain : Form
     {
         private User m_LoggedInUser;
         private readonly FacebookAppLogicFacade r_AppLogicFacade;
+        private static FormMain s_Instance = null;
+        private static readonly object sr_LockObject = new object();
+
+        public static FormMain Instance
+        {
+            get
+            {
+                if(s_Instance == null)
+                {
+                    lock(sr_LockObject)
+                    {
+                        if(s_Instance == null)
+                        {
+                            s_Instance = new FormMain();
+                        }
+                    }
+                }
+
+                return s_Instance;
+            }
+        }
 
         private FormMain()
         {
@@ -87,6 +108,7 @@ namespace BasicFacebookFeatures
             Form findAndPrepareBirthdaysForm = FormFactory.createForm("findAndPrepareBirthdayWishesToCal");
             findAndPrepareBirthdaysForm.Show();
         }
+       
 
         private void showUIAfterLogin() 
         {

@@ -31,7 +31,7 @@ namespace BasicFacebookFeatures
 
         public void FetchFriends(BindingSource i_BindingSource)
         {
-            i_BindingSource.DataSource = MainFormSingleton.Instance.LoggedInUser.Friends;
+            i_BindingSource.DataSource = FormMain.Instance.LoggedInUser.Friends;
         }
 
         public void StopWhenMouseOverPictures(PictureBox i_PhotosPanel)
@@ -63,7 +63,7 @@ namespace BasicFacebookFeatures
             {
                 int pictureIndex;
                 m_PhotosArray[i] = new PictureBox();
-                if (MainFormSingleton.Instance.LoggedInUser.PhotosTaggedIn.Count != 0)
+                if (FormMain.Instance.LoggedInUser.PhotosTaggedIn.Count != 0)
                 {
                     m_PhotosArray[i].LoadAsync(getRandomUserPhoto(out pictureIndex, m_PhotosArray));
                     m_PhotosArray[i].Name = pictureIndex.ToString();
@@ -82,7 +82,7 @@ namespace BasicFacebookFeatures
         private string getRandomUserPhoto(out int o_PictureIndex, PictureBox[] i_PhotosArray)
         {
             Random random = new Random();
-            int countOfPhotosTaggedIn = MainFormSingleton.Instance.LoggedInUser.PhotosTaggedIn.Count;
+            int countOfPhotosTaggedIn = FormMain.Instance.LoggedInUser.PhotosTaggedIn.Count;
             int randomNumber = random.Next(0, countOfPhotosTaggedIn);
 
             while (countOfPhotosTaggedIn > k_NumberOfPhotos && photoAlreadyShown(randomNumber, i_PhotosArray))
@@ -91,7 +91,7 @@ namespace BasicFacebookFeatures
             }
 
             o_PictureIndex = randomNumber;
-            string url = MainFormSingleton.Instance.LoggedInUser.PhotosTaggedIn[randomNumber].PictureNormalURL;
+            string url = FormMain.Instance.LoggedInUser.PhotosTaggedIn[randomNumber].PictureNormalURL;
 
             return url;
         }
@@ -132,7 +132,7 @@ namespace BasicFacebookFeatures
                 if (m_PhotosArray[i].Location.X > m_FormWidth)
                 {
                     int pictureIndex;
-                    if (MainFormSingleton.Instance.LoggedInUser.PhotosTaggedIn.Count != 0)
+                    if (FormMain.Instance.LoggedInUser.PhotosTaggedIn.Count != 0)
                     {
                         m_PhotosArray[i].LoadAsync(getRandomUserPhoto(out pictureIndex, m_PhotosArray)); 
                         m_PhotosArray[i].Name = pictureIndex.ToString();

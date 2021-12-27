@@ -21,7 +21,7 @@ namespace BasicFacebookFeatures
         public FormGenerateComment()
         {
             InitializeComponent();
-            r_LoggedInUser = MainFormSingleton.Instance.LoggedInUser;
+            r_LoggedInUser = FormMain.Instance.LoggedInUser;
             r_CommentGenerator = new CommentGenerator();
             profilePictureBox.Image = r_LoggedInUser.ImageSquare;
             if (r_LoggedInUser.Albums[1].Photos[0] != null)
