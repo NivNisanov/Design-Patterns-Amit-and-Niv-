@@ -11,7 +11,6 @@ namespace BasicFacebookFeatures
     public abstract class TextGenerator
     {
         protected User User { get; set; }
-        //protected User User;
 
         public abstract string GenerateText(User i_User, string i_BirthdayInStringy);
         

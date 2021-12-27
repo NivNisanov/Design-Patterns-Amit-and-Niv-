@@ -32,7 +32,9 @@ namespace BasicFacebookFeatures
             {
                 coverPic.ForeColor = Color.DodgerBlue;
             }
-            fetchPosts();
+
+            new Thread(fetchPosts).Start();
+            //fetchPosts();
         }
 
         private void profilePictureLable_Click(object sender, EventArgs e)

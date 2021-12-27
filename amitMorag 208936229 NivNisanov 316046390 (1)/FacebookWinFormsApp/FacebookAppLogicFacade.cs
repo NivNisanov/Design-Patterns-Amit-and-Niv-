@@ -7,6 +7,8 @@ using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Drawing;
+using System.Threading;
+using Timer = System.Windows.Forms.Timer;
 
 namespace BasicFacebookFeatures
 {
@@ -36,17 +38,12 @@ namespace BasicFacebookFeatures
         {
             i_PhotosPanel.MouseEnter += hoverPictures_MouseEnter;
             i_PhotosPanel.MouseLeave += hoverPictures_MouseLeave;
+
             foreach(PictureBox picture in m_PhotosArray)
             {
                 picture.MouseEnter += hoverPictures_MouseEnter;
                 picture.MouseLeave += hoverPictures_MouseLeave;
             }
-
-            //for (int i = 0; i < r_PhotosArray.Length; i++)
-            //{
-            //    r_PhotosArray[i].MouseEnter += hoverPictures_MouseEnter;
-            //    r_PhotosArray[i].MouseLeave += hoverPictures_MouseLeave;
-            //}
         }
 
         private void hoverPictures_MouseLeave(object sender, EventArgs e)
@@ -137,11 +134,11 @@ namespace BasicFacebookFeatures
                     int pictureIndex;
                     if (MainFormSingleton.Instance.LoggedInUser.PhotosTaggedIn.Count != 0)
                     {
-                        m_PhotosArray[i].LoadAsync(getRandomUserPhoto(out pictureIndex, m_PhotosArray));
+                        m_PhotosArray[i].LoadAsync(getRandomUserPhoto(out pictureIndex, m_PhotosArray)); 
                         m_PhotosArray[i].Name = pictureIndex.ToString();
                     }
                     else
-                    {
+                    { 
                         m_PhotosArray[i].Image = null;
                     }
 

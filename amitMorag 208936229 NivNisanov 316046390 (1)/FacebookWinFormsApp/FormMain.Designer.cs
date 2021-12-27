@@ -51,6 +51,7 @@
             this.imageSquarePictureBox = new System.Windows.Forms.PictureBox();
             this.nameLabel1 = new System.Windows.Forms.Label();
             this.wallPostsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.label3 = new System.Windows.Forms.Label();
             birthdayLabel = new System.Windows.Forms.Label();
             nameLabel = new System.Windows.Forms.Label();
             countLabel = new System.Windows.Forms.Label();
@@ -67,7 +68,7 @@
             // birthdayLabel
             // 
             birthdayLabel.AutoSize = true;
-            birthdayLabel.Location = new System.Drawing.Point(3, 102);
+            birthdayLabel.Location = new System.Drawing.Point(3, 98);
             birthdayLabel.Name = "birthdayLabel";
             birthdayLabel.Size = new System.Drawing.Size(64, 17);
             birthdayLabel.TabIndex = 0;
@@ -76,7 +77,7 @@
             // nameLabel
             // 
             nameLabel.AutoSize = true;
-            nameLabel.Location = new System.Drawing.Point(3, 77);
+            nameLabel.Location = new System.Drawing.Point(3, 73);
             nameLabel.Name = "nameLabel";
             nameLabel.Size = new System.Drawing.Size(49, 17);
             nameLabel.TabIndex = 4;
@@ -85,7 +86,7 @@
             // countLabel
             // 
             countLabel.AutoSize = true;
-            countLabel.Location = new System.Drawing.Point(3, 125);
+            countLabel.Location = new System.Drawing.Point(3, 121);
             countLabel.Name = "countLabel";
             countLabel.Size = new System.Drawing.Size(131, 17);
             countLabel.TabIndex = 5;
@@ -177,7 +178,7 @@
             this.friendsListBox.DataSource = this.membersBindingSource;
             this.friendsListBox.FormattingEnabled = true;
             this.friendsListBox.ItemHeight = 16;
-            this.friendsListBox.Location = new System.Drawing.Point(633, 38);
+            this.friendsListBox.Location = new System.Drawing.Point(633, 26);
             this.friendsListBox.Name = "friendsListBox";
             this.friendsListBox.Size = new System.Drawing.Size(178, 100);
             this.friendsListBox.TabIndex = 58;
@@ -190,13 +191,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(631, 16);
+            this.label1.Location = new System.Drawing.Point(631, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 17);
             this.label1.TabIndex = 59;
             this.label1.Text = "Friends:";
             this.label1.Visible = false;
-            //this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -219,16 +219,16 @@
             this.dataBindingPanel.Controls.Add(this.imageSquarePictureBox);
             this.dataBindingPanel.Controls.Add(nameLabel);
             this.dataBindingPanel.Controls.Add(this.nameLabel1);
-            this.dataBindingPanel.Location = new System.Drawing.Point(634, 144);
+            this.dataBindingPanel.Location = new System.Drawing.Point(633, 161);
             this.dataBindingPanel.Name = "dataBindingPanel";
-            this.dataBindingPanel.Size = new System.Drawing.Size(177, 157);
+            this.dataBindingPanel.Size = new System.Drawing.Size(178, 146);
             this.dataBindingPanel.TabIndex = 61;
             this.dataBindingPanel.Visible = false;
             // 
             // countLabel1
             // 
             this.countLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.albumsBindingSource, "Count", true));
-            this.countLabel1.Location = new System.Drawing.Point(129, 125);
+            this.countLabel1.Location = new System.Drawing.Point(129, 121);
             this.countLabel1.Name = "countLabel1";
             this.countLabel1.Size = new System.Drawing.Size(49, 23);
             this.countLabel1.TabIndex = 6;
@@ -242,7 +242,7 @@
             // birthdayLabel1
             // 
             this.birthdayLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.membersBindingSource, "Birthday", true));
-            this.birthdayLabel1.Location = new System.Drawing.Point(73, 102);
+            this.birthdayLabel1.Location = new System.Drawing.Point(73, 98);
             this.birthdayLabel1.Name = "birthdayLabel1";
             this.birthdayLabel1.Size = new System.Drawing.Size(98, 23);
             this.birthdayLabel1.TabIndex = 1;
@@ -260,7 +260,7 @@
             // nameLabel1
             // 
             this.nameLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.membersBindingSource, "Name", true));
-            this.nameLabel1.Location = new System.Drawing.Point(73, 77);
+            this.nameLabel1.Location = new System.Drawing.Point(73, 73);
             this.nameLabel1.Name = "nameLabel1";
             this.nameLabel1.Size = new System.Drawing.Size(98, 23);
             this.nameLabel1.TabIndex = 5;
@@ -271,12 +271,23 @@
             this.wallPostsBindingSource.DataMember = "WallPosts";
             this.wallPostsBindingSource.DataSource = this.membersBindingSource;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(631, 138);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(134, 17);
+            this.label3.TabIndex = 62;
+            this.label3.Text = "Selected friend info:";
+            this.label3.Visible = false;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(818, 534);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.dataBindingPanel);
             this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.label2);
@@ -294,7 +305,6 @@
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Facebook App";
-            //this.Load += new System.EventHandler(this.FormMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.profilePic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userPictures)).EndInit();
@@ -330,6 +340,7 @@
         private System.Windows.Forms.BindingSource wallPostsBindingSource;
         private System.Windows.Forms.Label countLabel1;
         private System.Windows.Forms.BindingSource albumsBindingSource;
+        private System.Windows.Forms.Label label3;
     }
 }
 

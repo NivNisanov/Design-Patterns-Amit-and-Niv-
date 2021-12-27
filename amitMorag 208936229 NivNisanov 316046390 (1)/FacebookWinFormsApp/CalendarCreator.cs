@@ -12,53 +12,46 @@ namespace BasicFacebookFeatures
 {
     public class CalendarCreator
     {
-        private StringBuilder CalendarFormat { get;}
-        //private StringBuilder calendarFormat = new StringBuilder();
-        private string DateFormat {get;}
-        //string m_DateFormat = "yyyyMMdd";
-        private string CurrentTime {get;}
-        //readonly string r_CurrentTime;
+        private readonly StringBuilder r_CalendarFormat = new StringBuilder();
+        private readonly string  r_DateFormat = "yyyyMMdd";
+        private readonly string r_CurrentTime;
         private int NumberOfEvents { get; set;}
-        //private int m_NumberOfEvents;
         private string NameOfFile { get; set; }
-        //private string m_NameOfFile;
 
         public CalendarCreator()
         {
-            CalendarFormat = new StringBuilder();
-            DateFormat = "yyyyMMdd";
             NumberOfEvents = 0;
-            CurrentTime = DateTime.Now.ToUniversalTime().ToString(DateFormat);
-            CalendarFormat.AppendLine("BEGIN:VCALENDAR");
-            CalendarFormat.AppendLine("PRODID:Birthdays Helper");
-            CalendarFormat.AppendLine("VERSION:2.0");
-            CalendarFormat.AppendLine("METHOD:PUBLISH");
+            r_CurrentTime = DateTime.Now.ToUniversalTime().ToString(r_DateFormat);
+            r_CalendarFormat.AppendLine("BEGIN:VCALENDAR");
+            r_CalendarFormat.AppendLine("PRODID:Birthdays Helper");
+            r_CalendarFormat.AppendLine("VERSION:2.0");
+            r_CalendarFormat.AppendLine("METHOD:PUBLISH");
             
         }
 
         public void AddEvent(DateTime i_Date, User i_Friend, string i_Description)
         {
-            CalendarFormat.AppendLine("BEGIN:VEVENT");
-            CalendarFormat.AppendLine("DTSTART;VALUE=DATE:" + i_Date.ToString(DateFormat));
-            CalendarFormat.AppendLine("DTSTAMP:" + CurrentTime);
-            CalendarFormat.AppendLine("UID:" + Guid.NewGuid());
-            CalendarFormat.AppendLine("CREATED:" + CurrentTime);
+            r_CalendarFormat.AppendLine("BEGIN:VEVENT");
+            r_CalendarFormat.AppendLine("DTSTART;VALUE=DATE:" + i_Date.ToString(r_DateFormat));
+            r_CalendarFormat.AppendLine("DTSTAMP:" + r_CurrentTime);
+            r_CalendarFormat.AppendLine("UID:" + Guid.NewGuid());
+            r_CalendarFormat.AppendLine("CREATED:" + r_CurrentTime);
             //calendarFormat.AppendLine("X-ALT-DESC;FMTTYPE=text/html:" + res.DetailsHTML);
-            CalendarFormat.AppendLine($"DESCRIPTION:{i_Description}");
-            CalendarFormat.AppendLine($"LAST-MODIFIED:{CurrentTime}");
-            CalendarFormat.AppendLine($"SUMMARY:{i_Friend.Name} Birthday");
-            CalendarFormat.AppendLine("END:VEVENT");
+            r_CalendarFormat.AppendLine($"DESCRIPTION:{i_Description}");
+            r_CalendarFormat.AppendLine($"LAST-MODIFIED:{r_CurrentTime}");
+            r_CalendarFormat.AppendLine($"SUMMARY:{i_Friend.Name} Birthday");
+            r_CalendarFormat.AppendLine("END:VEVENT");
             NumberOfEvents++;
         }
 
         public void ExportCalendar(string i_NameofFile)
         {
             NameOfFile = i_NameofFile;
-            StringBuilder calendarForExport = CalendarFormat;
+            StringBuilder calendarForExport = r_CalendarFormat;
             calendarForExport.AppendLine("END:VCALENDAR");
 
             string dirParameter = AppDomain.CurrentDomain.BaseDirectory + $@"\{NameOfFile}.ics";
-            string Msg = CalendarFormat.ToString();
+            string Msg = r_CalendarFormat.ToString();
 
             FileStream fParameter = new FileStream(dirParameter, FileMode.Create, FileAccess.Write);
             StreamWriter m_WriterParameter = new StreamWriter(fParameter);

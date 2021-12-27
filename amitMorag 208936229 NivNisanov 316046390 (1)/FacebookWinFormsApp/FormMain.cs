@@ -68,9 +68,6 @@ namespace BasicFacebookFeatures
             {
                 MessageBox.Show("Log in Failed","ERROR",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
-
-            Thread t0 = Thread.CurrentThread;
-            Console.WriteLine("main = " + t0.ManagedThreadId); //REMOVE
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
@@ -81,26 +78,14 @@ namespace BasicFacebookFeatures
 
         private void generateCommentsButton_Click(object sender, EventArgs e)
         {
-            new Thread(runGenerateCommentFeature).Start();
-        }
-        private void runGenerateCommentFeature()
-        {
-            generateCommentsButton.Invoke(new Action(() => {
-                Form formGenerateComment = FormFactory.createForm("generateComment");
-                formGenerateComment.Show();
-            }));
+            Form formGenerateComment = FormFactory.createForm("generateComment");
+            formGenerateComment.Show();
         }
 
         private void birthdaysWishesButton_Click(object sender, EventArgs e)
         {
-            new Thread(runBirthdayWishesToCal).Start();
-        }
-        private void runBirthdayWishesToCal()
-        {
-            birthdaysWishesButton.Invoke(new Action(() => {
-                Form findAndPrepareBirthdaysForm = FormFactory.createForm("findAndPrepareBirthdayWishesToCal");
-                findAndPrepareBirthdaysForm.Show();
-            }));
+            Form findAndPrepareBirthdaysForm = FormFactory.createForm("findAndPrepareBirthdayWishesToCal");
+            findAndPrepareBirthdaysForm.Show();
         }
 
         private void showUIAfterLogin() 
@@ -128,6 +113,7 @@ namespace BasicFacebookFeatures
             userPictures.SendToBack();
             label1.Visible = true;
             label2.Visible = true;
+            label3.Visible = true;
         }
 
         private void hideUIAfterLogout() 
