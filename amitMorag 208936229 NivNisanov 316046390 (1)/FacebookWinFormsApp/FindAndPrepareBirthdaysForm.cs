@@ -24,7 +24,7 @@ namespace BasicFacebookFeatures
         public FindAndPrepareBirthdaysForm()
         {
             InitializeComponent();
-            r_UserLoggedIn = MainFormSingleton.Instance.LoggedInUser;
+            r_UserLoggedIn = FormMain.Instance.LoggedInUser;
             r_FriendsList = r_UserLoggedIn.Friends;
             r_FriendsBirthdays = new List<UserBirthday>();
             profilePic.Image = r_UserLoggedIn.ImageNormal;
