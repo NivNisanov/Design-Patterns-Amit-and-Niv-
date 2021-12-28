@@ -17,16 +17,17 @@ namespace BasicFacebookFeatures
     {
         public static Form createForm(string i_formToCreate)
         {
+            Form formToReturn = null;
             if (i_formToCreate.Equals("generateComment"))
             {
-                return new FormGenerateComment();
+                formToReturn =  new FormGenerateComment();
             }
 
             if (i_formToCreate.Equals("findAndPrepareBirthdayWishesToCal"))
             {
-                return new FindAndPrepareBirthdaysForm();
+                formToReturn =  new FindAndPrepareBirthdaysForm();
             }
-            return null;
+            return formToReturn;
         }
     }
 }
