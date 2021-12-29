@@ -45,7 +45,8 @@ namespace BasicFacebookFeatures
         private void fetchPosts()
         {
             //all posts
-            PopulateListBoxOfType(r_LoggedInUser.Posts, commentsListBox);
+            List<Post> allPosts = r_AppLogicFacade.GetAllPosts();
+            PopulateListBoxOfType(allPosts, commentsListBox);
         }
         
         protected void PopulateListBoxOfType<T>(IEnumerable<T> i_Items, ListBox i_ListBox)

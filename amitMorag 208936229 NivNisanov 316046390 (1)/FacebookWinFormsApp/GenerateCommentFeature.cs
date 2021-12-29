@@ -55,5 +55,10 @@ namespace BasicFacebookFeatures
 
             return suggestedCommentsList;
         }
+
+        public List<Post> GetAllPosts()
+        {
+            return r_LoggedInUser.Posts.ToList();
+        }
     }
 }

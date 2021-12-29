@@ -163,9 +163,14 @@ namespace BasicFacebookFeatures
             m_FindAndPrepareBirthdays.ExportAndOpenCalendar();
         }
 
-        public List<Post> FilterOnlyBirthdayPosts(List<Post> i_ItemsToFilter)
+        public List<Post> GetAllPosts()
         {
             m_GenerateCommentFeature = new GenerateCommentFeature();
+            return m_GenerateCommentFeature.GetAllPosts();
+        }
+
+        public List<Post> FilterOnlyBirthdayPosts(List<Post> i_ItemsToFilter)
+        {
             return m_GenerateCommentFeature.FilterOnlyBirthdayPosts(i_ItemsToFilter);
         }
 
