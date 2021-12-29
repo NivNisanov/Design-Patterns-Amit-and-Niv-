@@ -15,19 +15,17 @@ namespace BasicFacebookFeatures
 {
     public partial class FindAndPrepareBirthdaysForm : Form
     {
-        private readonly FacebookObjectCollection<User> r_FriendsList;
         private DateTime m_StartTime;
         private DateTime m_EndTime;
         private readonly User r_UserLoggedIn;
-        private readonly List<UserBirthday> r_FriendsBirthdays;
+        private readonly FacebookAppLogicFacade r_AppLogicFacade;
 
         public FindAndPrepareBirthdaysForm()
         {
             InitializeComponent();
             r_UserLoggedIn = FormMain.Instance.LoggedInUser;
-            r_FriendsList = r_UserLoggedIn.Friends;
-            r_FriendsBirthdays = new List<UserBirthday>();
             profilePic.Image = r_UserLoggedIn.ImageNormal;
+            r_AppLogicFacade = new FacebookAppLogicFacade();
             if (r_UserLoggedIn.Albums[1].Photos[0] != null)
             {
                 coverPic.Image = r_UserLoggedIn.Albums[1].Photos[0].ImageNormal;
@@ -38,60 +36,30 @@ namespace BasicFacebookFeatures
             }
         }
 
-        public void FetchFriendsBirthdaysAtTime()
-        {
-            r_FriendsBirthdays.Clear();
-            listOfEvents.Items.Clear();
-
-            foreach (User friend in r_FriendsList)
-            {
-                DateTime friendBirthday = DateTime.Parse(friend.Birthday,new CultureInfo("en-CA"));
-                int numOfYears = m_EndTime.Year - m_StartTime.Year + 1;
-
-                if(DateTime.Compare(m_StartTime, m_EndTime) < 0)
-                {
-                    for (int i = 0; i < numOfYears; i++)
-                    {
-                        DateTime friendBirthdayInIntervalTime = new DateTime(
-                            m_StartTime.Year + i,
-                            friendBirthday.Month,
-                            friendBirthday.Day);
-                        bool isBirthdayAfterStartTime = DateTime.Compare(friendBirthdayInIntervalTime, m_StartTime) >= 0;
-                        bool isBirthdayBeforeEndTime = DateTime.Compare(friendBirthdayInIntervalTime, m_EndTime) <= 0;
-                        
-                        if (isBirthdayAfterStartTime && isBirthdayBeforeEndTime)
-                        {
-                            listOfEvents.Items.Add($"{friend.Name} at {friendBirthdayInIntervalTime.ToShortDateString()}");
-                            r_FriendsBirthdays.Add(new UserBirthday(friend,friendBirthdayInIntervalTime));
-                        }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show($"Start date ({m_StartTime}) is after the end date ({m_EndTime}).");
-                }
-            }
-        }
-
         private void searchEventsButton_Click(object sender, EventArgs e)
         {
+            listOfEvents.Items.Clear();
             m_StartTime = startDateTimePicker.Value;
             m_EndTime = endDateTimePicker.Value;
-            FetchFriendsBirthdaysAtTime();
-            generateCalendarButton.Enabled = true;
-            generateCalendarButton.Visible = true;
+            try
+            {
+                List<string> friendsBirthdays = r_AppLogicFacade.FetchFriendsBirthdaysAtTime(m_StartTime, m_EndTime);
+                foreach (string birthday in friendsBirthdays)
+                {
+                    listOfEvents.Items.Add(birthday);
+                }
+                generateCalendarButton.Enabled = true;
+                generateCalendarButton.Visible = true;
+            }
+            catch(Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
         }
 
         private void GenerateCalendarButton_Click(object sender, EventArgs e)
         {
-            CalendarCreator calendar = new CalendarCreator();
-            foreach(UserBirthday birthday in r_FriendsBirthdays)
-            {
-                calendar.AddEvent(birthday.BirthdayDate, birthday.User, birthday.BirthdayWish);
-            }
-            calendar.ExportCalendar("BirthdayHelper");
-            calendar.OpenCalendar();
-            
+            r_AppLogicFacade.ExportAndOpenCalander();
         }
     }
 }

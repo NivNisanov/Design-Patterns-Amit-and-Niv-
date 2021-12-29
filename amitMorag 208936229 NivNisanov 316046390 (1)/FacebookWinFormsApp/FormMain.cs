@@ -41,8 +41,8 @@ namespace BasicFacebookFeatures
 
         private FormMain()
         {
-            r_AppLogicFacade = new FacebookAppLogicFacade();
             InitializeComponent();
+            r_AppLogicFacade = new FacebookAppLogicFacade();
             FacebookWrapper.FacebookService.s_CollectionLimit = 100;
         }
 

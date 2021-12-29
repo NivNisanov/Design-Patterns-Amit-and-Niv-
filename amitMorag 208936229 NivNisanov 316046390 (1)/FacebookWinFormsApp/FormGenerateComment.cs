@@ -15,14 +15,15 @@ namespace BasicFacebookFeatures
 {
     public partial class FormGenerateComment : Form
     {
-        private readonly User r_LoggedInUser;
-        private readonly CommentGenerator r_CommentGenerator;
+        private readonly User r_LoggedInUser;                  
+        private readonly FacebookAppLogicFacade r_AppLogicFacade;
+        private List<Post> m_FilteredPosts;
 
         public FormGenerateComment()
         {
             InitializeComponent();
-            r_LoggedInUser = FormMain.Instance.LoggedInUser;
-            r_CommentGenerator = new CommentGenerator();
+            r_LoggedInUser = FormMain.Instance.LoggedInUser;         
+            r_AppLogicFacade = new FacebookAppLogicFacade();
             profilePictureBox.Image = r_LoggedInUser.ImageSquare;
             if (r_LoggedInUser.Albums[1].Photos[0] != null)
             {
@@ -34,7 +35,6 @@ namespace BasicFacebookFeatures
             }
 
             new Thread(fetchPosts).Start();
-            //fetchPosts();
         }
 
         private void profilePictureLable_Click(object sender, EventArgs e)
@@ -47,26 +47,7 @@ namespace BasicFacebookFeatures
             //all posts
             PopulateListBoxOfType(r_LoggedInUser.Posts, commentsListBox);
         }
-
-        private void filterOnlyBirthdayPosts()
-        {
-            List<Post> birthdayPosts = new List<Post>();
-            Regex englishBirthdayMessageRegex = new Regex("[Bb][Ii][rR][tT][hH][dD][aA][yY]");
-            Regex hebrewBirthdayMessageRegex = new Regex("מזל טוב");
-            foreach (object item in commentsListBox.Items)
-            {
-                if (item is Post post)
-                {
-                    if (!string.IsNullOrEmpty(post.Message) && (hebrewBirthdayMessageRegex.IsMatch(post.Message) || englishBirthdayMessageRegex.IsMatch(post.Message)))
-                    {
-                        birthdayPosts.Add(post);
-                    }
-                }
-            }
-
-            PopulateListBoxOfType(birthdayPosts, commentsListBox);
-        }
-
+        
         protected void PopulateListBoxOfType<T>(IEnumerable<T> i_Items, ListBox i_ListBox)
         {
             i_ListBox.Invoke(new Action(() => i_ListBox.Items.Clear()));
@@ -76,35 +57,20 @@ namespace BasicFacebookFeatures
                 i_ListBox.Invoke(new Action(() => i_ListBox.Items.Add(item)));
             }
         }
-        private void displaySuggestedComments()
-        {
-            foreach (object item in commentsListBox.Items)
-            {
-                if (item is Post birthdayPost)
-                {
-                    User author = birthdayPost.From;
-                    string birthday = null;
-                    if(author != null)
-                    {
-                        birthday = author.Birthday;
-                    }
-                    string replyMessage = r_CommentGenerator.GenerateText(author, birthday);
-                    suggestedCommentsLst.Items.Add(replyMessage);
-                }
-            }
-        }
 
         private void filterButton_Click(object sender, EventArgs e)
         {
             generateBirthdayComment.Visible = true;
-            filterOnlyBirthdayPosts();
+            m_FilteredPosts = r_AppLogicFacade.FilterOnlyBirthdayPosts(commentsListBox.Items.Cast<Post>().ToList());
+            PopulateListBoxOfType(m_FilteredPosts, commentsListBox);
         }
 
         private void generateBirthdayComment_click(object sender, EventArgs e)
         {
             suggestedCommentsLst.Visible = true;
             commentSuggestionLable.Visible = true;
-            displaySuggestedComments();
+            List<string> suggestedComments = r_AppLogicFacade.GetSuggestedComments(m_FilteredPosts);
+            PopulateListBoxOfType(suggestedComments,suggestedCommentsLst);
         }
 
         private void label1_Click(object sender, EventArgs e)

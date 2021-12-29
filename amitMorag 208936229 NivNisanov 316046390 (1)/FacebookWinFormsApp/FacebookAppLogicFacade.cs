@@ -21,6 +21,8 @@ namespace BasicFacebookFeatures
         private const int k_SlidePhotosYOffset = 5;
         private const int k_SlidePhotosMaxSpeed = 1;
         private PictureBox[] m_PhotosArray = new PictureBox[k_NumberOfPhotos];
+        private FindAndPrepareBirthdaysFeature m_FindAndPrepareBirthdays;
+        private GenerateCommentFeature m_GenerateCommentFeature;
         private int m_PicturesSpeed = 1;
         private int m_FormWidth;
 
@@ -145,6 +147,31 @@ namespace BasicFacebookFeatures
                     m_PhotosArray[i].Location = new Point(-1 * m_PhotosArray[i].Size.Width, m_PhotosArray[i].Location.Y);
                 }
             }
+        }
+
+        public List<string> FetchFriendsBirthdaysAtTime(DateTime i_Start, DateTime i_End)
+        {
+            m_FindAndPrepareBirthdays = new FindAndPrepareBirthdaysFeature();
+            m_FindAndPrepareBirthdays.StartTime = i_Start;
+            m_FindAndPrepareBirthdays.EndTime = i_End;
+            List<string> friendsBirthdays = m_FindAndPrepareBirthdays.FetchFriendsBirthdaysAtTime();
+            return friendsBirthdays;
+        }
+
+        public void ExportAndOpenCalander()
+        {
+            m_FindAndPrepareBirthdays.ExportAndOpenCalendar();
+        }
+
+        public List<Post> FilterOnlyBirthdayPosts(List<Post> i_ItemsToFilter)
+        {
+            m_GenerateCommentFeature = new GenerateCommentFeature();
+            return m_GenerateCommentFeature.FilterOnlyBirthdayPosts(i_ItemsToFilter);
+        }
+
+        public List<string> GetSuggestedComments(List<Post> i_ItemsToSuggestComment)
+        {
+            return m_GenerateCommentFeature.GetSuggestedComments(i_ItemsToSuggestComment);
         }
     }
 }
