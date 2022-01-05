@@ -16,16 +16,19 @@ namespace BasicFacebookFeatures
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         private readonly List<UserBirthday> r_FriendsBirthdays;
+        private CalendarCreator m_Calendar;
         public FindAndPrepareBirthdaysFeature():base("birthdayWishesToCal")
         {
             r_UserLoggedIn = FormMain.Instance.LoggedInUser;
             r_FriendsList = r_UserLoggedIn.Friends;
             r_FriendsBirthdays = new List<UserBirthday>();
+            m_Calendar = new CalendarCreator();
         }
 
         public List<string> FetchFriendsBirthdaysAtTime()
         {
             r_FriendsBirthdays.Clear();
+            m_Calendar.Clear();
             List<string> friendsBirthdaysList = new List<string>();
 
             foreach (User friend in r_FriendsList)
@@ -47,10 +50,12 @@ namespace BasicFacebookFeatures
                         if (isBirthdayAfterStartTime && isBirthdayBeforeEndTime)
                         {
                             friendsBirthdaysList.Add($"{friend.Name} at {friendBirthdayInIntervalTime.ToShortDateString()}");
-                            //i_ListOfEvents.Items.Add($"{friend.Name} at {friendBirthdayInIntervalTime.ToShortDateString()}");
                             UserBirthday userToAdd = new UserBirthday(friend, friendBirthdayInIntervalTime);
                             userToAdd.BirthdayWish = this.m_textGenerator.GenerateText(friend, friendBirthdayInIntervalTime.ToString("MM/dd/yyyy"));
-                            r_FriendsBirthdays.Add(userToAdd);
+                            string birthdayWish = this.m_textGenerator.GenerateText(friend, friendBirthdayInIntervalTime.ToString("MM/dd/yyyy"));
+                            m_Calendar.AddEvent(friendBirthdayInIntervalTime,friend, birthdayWish);
+                            
+                           // r_FriendsBirthdays.Add(userToAdd);
                         }
                     }
                 }
@@ -60,18 +65,23 @@ namespace BasicFacebookFeatures
                 }
             }
 
+            //TODO: sort before return with strategy!
+
             return friendsBirthdaysList;
         }
 
         public void ExportAndOpenCalendar()
         {
-            CalendarCreator calendar = new CalendarCreator();
-            foreach (UserBirthday birthday in r_FriendsBirthdays)
-            {
-                calendar.AddEvent(birthday.BirthdayDate, birthday.User, birthday.BirthdayWish);
-            }
-            calendar.ExportCalendar("BirthdayHelper");
-            calendar.OpenCalendar();
+            //CalendarCreator calendar = new CalendarCreator();
+            //foreach (UserBirthday birthday in r_FriendsBirthdays)
+            //{
+            //    calendar.AddEvent(birthday.BirthdayDate, birthday.User, birthday.BirthdayWish);
+            //}
+            //calendar.ExportCalendar("BirthdayHelper");
+            //calendar.OpenCalendar();
+
+            m_Calendar.ExportCalendar("BirthdayHelper");
+            m_Calendar.OpenCalendar();
         }
     }
 }

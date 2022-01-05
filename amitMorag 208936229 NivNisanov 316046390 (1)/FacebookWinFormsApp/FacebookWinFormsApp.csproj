@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalendarCreator.cs" />
+    <Compile Include="CalendarEvent.cs" />
     <Compile Include="CommentGenerator.cs" />
     <Compile Include="FacebookAppLogicFacade.cs" />
     <Compile Include="FeatureWithTextGenerator.cs" />
