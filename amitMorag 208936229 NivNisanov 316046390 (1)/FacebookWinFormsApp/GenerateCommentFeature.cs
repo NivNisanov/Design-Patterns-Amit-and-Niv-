@@ -8,15 +8,14 @@ using FacebookWrapper.ObjectModel;
 
 namespace BasicFacebookFeatures
 {
-    class GenerateCommentFeature
+    class GenerateCommentFeature: FeatureWithTextGenerator
     {
-        private readonly CommentGenerator r_CommentGenerator;
+
         private readonly User r_LoggedInUser;
 
-        public GenerateCommentFeature()
+        public GenerateCommentFeature():base("comment")
         {
             r_LoggedInUser = FormMain.Instance.LoggedInUser;
-            r_CommentGenerator = new CommentGenerator();
         }
 
         public List<Post> FilterOnlyBirthdayPosts(List<Post> i_ItemsToFilter)
@@ -49,7 +48,7 @@ namespace BasicFacebookFeatures
                 {
                     birthday = author.Birthday;
                 }
-                string replyMessage = r_CommentGenerator.GenerateText(author, birthday);
+                string replyMessage = this.m_textGenerator.GenerateText(author, birthday);
                 suggestedCommentsList.Add(replyMessage);
             }
 

@@ -9,15 +9,14 @@ using FacebookWrapper.ObjectModel;
 
 namespace BasicFacebookFeatures
 {
-    class FindAndPrepareBirthdaysFeature
+    class FindAndPrepareBirthdaysFeature: FeatureWithTextGenerator
     {
         private readonly FacebookObjectCollection<User> r_FriendsList;
         private readonly User r_UserLoggedIn;
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         private readonly List<UserBirthday> r_FriendsBirthdays;
-
-        public FindAndPrepareBirthdaysFeature()
+        public FindAndPrepareBirthdaysFeature():base("birthdayWishesToCal")
         {
             r_UserLoggedIn = FormMain.Instance.LoggedInUser;
             r_FriendsList = r_UserLoggedIn.Friends;
@@ -49,7 +48,9 @@ namespace BasicFacebookFeatures
                         {
                             friendsBirthdaysList.Add($"{friend.Name} at {friendBirthdayInIntervalTime.ToShortDateString()}");
                             //i_ListOfEvents.Items.Add($"{friend.Name} at {friendBirthdayInIntervalTime.ToShortDateString()}");
-                            r_FriendsBirthdays.Add(new UserBirthday(friend, friendBirthdayInIntervalTime));
+                            UserBirthday userToAdd = new UserBirthday(friend, friendBirthdayInIntervalTime);
+                            userToAdd.BirthdayWish = this.m_textGenerator.GenerateText(friend, friendBirthdayInIntervalTime.ToString("MM/dd/yyyy"));
+                            r_FriendsBirthdays.Add(userToAdd);
                         }
                     }
                 }
