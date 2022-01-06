@@ -154,7 +154,8 @@ namespace BasicFacebookFeatures
             m_FindAndPrepareBirthdays = new FindAndPrepareBirthdaysFeature();
             m_FindAndPrepareBirthdays.StartTime = i_Start;
             m_FindAndPrepareBirthdays.EndTime = i_End;
-            List<string> friendsBirthdays = m_FindAndPrepareBirthdays.FetchFriendsBirthdaysAtTime();
+            m_FindAndPrepareBirthdays.FetchFriendsBirthdaysAtTime();
+            List<string> friendsBirthdays = m_FindAndPrepareBirthdays.GetSortedBirthdayEvents();
             return friendsBirthdays;
         }
 

@@ -16,7 +16,7 @@ namespace BasicFacebookFeatures
         private readonly StringBuilder r_CalendarFormat = new StringBuilder();
         private readonly string  r_DateFormat = "yyyyMMdd";
         private string m_CurrentTime;
-        private int NumberOfEvents { get; set;}
+        public int NumberOfEvents { get; private set;}
 
         private readonly List<CalendarEvent> r_Events;
         private string NameOfFile { get; set; }

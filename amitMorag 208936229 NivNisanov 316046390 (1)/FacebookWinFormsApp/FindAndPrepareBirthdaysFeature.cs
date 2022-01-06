@@ -25,11 +25,11 @@ namespace BasicFacebookFeatures
             m_Calendar = new CalendarCreator();
         }
 
-        public List<string> FetchFriendsBirthdaysAtTime()
+        public void FetchFriendsBirthdaysAtTime()
         {
             r_FriendsBirthdays.Clear();
             m_Calendar.Clear();
-            List<string> friendsBirthdaysList = new List<string>();
+            //List<string> friendsBirthdaysList = new List<string>();
 
             foreach (User friend in r_FriendsList)
             {
@@ -49,9 +49,9 @@ namespace BasicFacebookFeatures
 
                         if (isBirthdayAfterStartTime && isBirthdayBeforeEndTime)
                         {
-                            friendsBirthdaysList.Add($"{friend.Name} at {friendBirthdayInIntervalTime.ToShortDateString()}");
-                            UserBirthday userToAdd = new UserBirthday(friend, friendBirthdayInIntervalTime);
-                            userToAdd.BirthdayWish = this.m_textGenerator.GenerateText(friend, friendBirthdayInIntervalTime.ToString("MM/dd/yyyy"));
+                            //friendsBirthdaysList.Add($"{friend.Name} at {friendBirthdayInIntervalTime.ToShortDateString()}");
+                            //UserBirthday userToAdd = new UserBirthday(friend, friendBirthdayInIntervalTime);
+                           // userToAdd.BirthdayWish = this.m_textGenerator.GenerateText(friend, friendBirthdayInIntervalTime.ToString("MM/dd/yyyy"));
                             string birthdayWish = this.m_textGenerator.GenerateText(friend, friendBirthdayInIntervalTime.ToString("MM/dd/yyyy"));
                             m_Calendar.AddEvent(friendBirthdayInIntervalTime,friend, birthdayWish);
                             
@@ -67,7 +67,22 @@ namespace BasicFacebookFeatures
 
             //TODO: sort before return with strategy!
 
-            return friendsBirthdaysList;
+            //return friendsBirthdaysList;
+        }
+
+        public List<string> GetSortedBirthdayEvents()
+        {
+            CalendarEventSorter sorter =
+                new CalendarEventSorter((event1, event2) => event1.DateOfEvent.Date > event2.DateOfEvent.Date);
+            List<CalendarEvent> sortedEvents = sorter.Sort(m_Calendar);
+            List<string> sortedBirthdays = new List<string>();
+
+            foreach(CalendarEvent calEvent in sortedEvents)
+            {
+                sortedBirthdays.Add($"{calEvent.NameOfEvent} at {calEvent.DateOfEvent.ToShortDateString()}");
+            }
+
+            return sortedBirthdays;
         }
 
         public void ExportAndOpenCalendar()

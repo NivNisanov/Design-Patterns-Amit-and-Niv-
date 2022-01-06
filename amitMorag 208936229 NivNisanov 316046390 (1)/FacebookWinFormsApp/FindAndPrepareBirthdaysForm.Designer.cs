@@ -47,15 +47,15 @@ namespace BasicFacebookFeatures
             // 
             this.listOfEvents.FormattingEnabled = true;
             this.listOfEvents.ItemHeight = 16;
-            this.listOfEvents.Location = new System.Drawing.Point(386, 225);
+            this.listOfEvents.Location = new System.Drawing.Point(351, 231);
             this.listOfEvents.Name = "listOfEvents";
-            this.listOfEvents.Size = new System.Drawing.Size(205, 84);
+            this.listOfEvents.Size = new System.Drawing.Size(240, 84);
             this.listOfEvents.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(383, 205);
+            this.label1.Location = new System.Drawing.Point(348, 211);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(109, 17);
             this.label1.TabIndex = 1;
@@ -63,14 +63,14 @@ namespace BasicFacebookFeatures
             // 
             // startDateTimePicker
             // 
-            this.startDateTimePicker.Location = new System.Drawing.Point(13, 230);
+            this.startDateTimePicker.Location = new System.Drawing.Point(13, 231);
             this.startDateTimePicker.Name = "startDateTimePicker";
             this.startDateTimePicker.Size = new System.Drawing.Size(242, 22);
             this.startDateTimePicker.TabIndex = 2;
             // 
             // endDateTimePicker
             // 
-            this.endDateTimePicker.Location = new System.Drawing.Point(13, 287);
+            this.endDateTimePicker.Location = new System.Drawing.Point(13, 288);
             this.endDateTimePicker.Name = "endDateTimePicker";
             this.endDateTimePicker.Size = new System.Drawing.Size(242, 22);
             this.endDateTimePicker.TabIndex = 3;
@@ -78,7 +78,7 @@ namespace BasicFacebookFeatures
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 210);
+            this.label2.Location = new System.Drawing.Point(10, 211);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 17);
             this.label2.TabIndex = 4;
@@ -87,7 +87,7 @@ namespace BasicFacebookFeatures
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 267);
+            this.label3.Location = new System.Drawing.Point(10, 268);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(67, 17);
             this.label3.TabIndex = 5;
