@@ -18,16 +18,10 @@ namespace BasicFacebookFeatures
         public List<CalendarEvent> Sort(CalendarCreator i_Calendar)
         {
             List<CalendarEvent> events = new List<CalendarEvent>();
-            CalendarEvent[] test = new CalendarEvent[i_Calendar.NumberOfEvents];
-            int index = 0;
             foreach (CalendarEvent CalEvent in i_Calendar)
             {
                 events.Add(CalEvent);
-                test[index] = CalEvent;
-                index++;
             }
-
-            
 
             for (int i = events.Count / 2; i > 0; i /= 2)
             {
@@ -40,7 +34,6 @@ namespace BasicFacebookFeatures
                             CalendarEvent temp = events[k];
                             events[k] = events[k + i];
                             events[k + i] = temp;
-                            //swap(events[k], events[k + i]);
                         }
                     }
                 }
@@ -48,13 +41,5 @@ namespace BasicFacebookFeatures
 
             return events;
         }
-
-        private void swap( CalendarEvent io_Event1, CalendarEvent io_Event2)
-        {
-            CalendarEvent temp = io_Event1;
-            io_Event1 = io_Event2;
-            io_Event2 = temp;
-        }
-
     }
 }
