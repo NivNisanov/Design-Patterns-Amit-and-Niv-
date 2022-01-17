@@ -47,15 +47,15 @@ namespace BasicFacebookFeatures
             // 
             this.listOfEvents.FormattingEnabled = true;
             this.listOfEvents.ItemHeight = 16;
-            this.listOfEvents.Location = new System.Drawing.Point(351, 231);
+            this.listOfEvents.Location = new System.Drawing.Point(326, 231);
             this.listOfEvents.Name = "listOfEvents";
-            this.listOfEvents.Size = new System.Drawing.Size(240, 84);
+            this.listOfEvents.Size = new System.Drawing.Size(265, 84);
             this.listOfEvents.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(348, 211);
+            this.label1.Location = new System.Drawing.Point(323, 211);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(109, 17);
             this.label1.TabIndex = 1;
@@ -125,7 +125,7 @@ namespace BasicFacebookFeatures
             // generateCalendarButton
             // 
             this.generateCalendarButton.Enabled = false;
-            this.generateCalendarButton.Location = new System.Drawing.Point(386, 329);
+            this.generateCalendarButton.Location = new System.Drawing.Point(356, 329);
             this.generateCalendarButton.Name = "generateCalendarButton";
             this.generateCalendarButton.Size = new System.Drawing.Size(205, 42);
             this.generateCalendarButton.TabIndex = 9;
